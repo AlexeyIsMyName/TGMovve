@@ -7,11 +7,7 @@
 
 import Foundation
 
-struct CastData: Codable {
-    let cast: [Cast]
-}
-
-struct Cast: Codable {
+struct Cast: Decodable {
     let name: String
     let character: String
     let profilePath: String?
