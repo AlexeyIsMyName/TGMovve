@@ -22,47 +22,65 @@ class URLManager {
     
     private let apiKey = "45679b9862cd16ef700c12d00d673fca"
     
-    var tvSeriesDiscover: String {
-        return "\(URLBase.tvSeriesDiscover.rawValue)?api_key=\(apiKey)"
+    func tvSeriesDiscover(completion: (URL) -> Void) {
+        if let url = URL(string: "\(URLBase.tvSeriesDiscover.rawValue)?api_key=\(apiKey)") {
+            completion(url)
+        }
     }
     
-    var movieDiscover: String {
-        return "\(URLBase.movieDiscover.rawValue)?api_key=\(apiKey)"
+    func movieDiscover(completion: (URL) -> Void) {
+        if let url = URL(string: "\(URLBase.movieDiscover.rawValue)?api_key=\(apiKey)") {
+            completion(url)
+        }
     }
     
-    func tvSeriesDetailsFor(tvID: Int) -> String {
+    func tvSeriesDetailsFor(tvID: Int, completion: (URL) -> Void) {
         let baseURL = URLBase.tvSeriesDetails.rawValue
-        return "\(baseURL)/\(tvID)?api_key=\(apiKey)"
+        if let url = URL(string: "\(baseURL)/\(tvID)?api_key=\(apiKey)") {
+            completion(url)
+        }
     }
     
-    func tvSeriesCreditsFor(tvID: Int) -> String {
+    func tvSeriesCreditsFor(tvID: Int, completion: (URL) -> Void) {
         let baseURL = URLBase.tvSeriesDetails.rawValue
-        return "\(baseURL)/\(tvID)/credits?api_key=\(apiKey)"
+        if let url = URL(string: "\(baseURL)/\(tvID)/credits?api_key=\(apiKey)") {
+            completion(url)
+        }
     }
     
-    func movieDetailsFor(movieID: Int) -> String {
+    func movieDetailsFor(movieID: Int, completion: (URL) -> Void) {
         let baseURL = URLBase.movieDetails.rawValue
-        return "\(baseURL)/\(movieID)?api_key=\(apiKey)"
+        if let url = URL(string: "\(baseURL)/\(movieID)?api_key=\(apiKey)") {
+            completion(url)
+        }
     }
     
-    func movieCreditsFor(movieID: Int) -> String {
+    func movieCreditsFor(movieID: Int, completion: (URL) -> Void) {
         let baseURL = URLBase.movieDetails.rawValue
-        return "\(baseURL)/\(movieID)/credits?api_key=\(apiKey)"
+        if let url = URL(string: "\(baseURL)/\(movieID)/credits?api_key=\(apiKey)") {
+            completion(url)
+        }
     }
     
-    func largeImageFor(_ shortImageURL: String) -> String {
+    func largeImageFor(_ shortImageURL: String, completion: (URL) -> Void) {
         let baseImageURL = URLBase.largeImage.rawValue
-        return "\(baseImageURL)\(shortImageURL)"
+        if let url = URL(string: "\(baseImageURL)\(shortImageURL)") {
+            completion(url)
+        }
     }
     
-    func mediumImageFor(_ shortImageURL: String) -> String {
+    func mediumImageFor(_ shortImageURL: String, completion: (URL) -> Void) {
         let baseImageURL = URLBase.mediumImage.rawValue
-        return "\(baseImageURL)\(shortImageURL)"
+        if let url = URL(string: "\(baseImageURL)\(shortImageURL)") {
+            completion(url)
+        }
     }
     
-    func smallImageFor(_ shortImageURL: String) -> String {
+    func smallImageFor(_ shortImageURL: String, completion: (URL) -> Void) {
         let baseImageURL = URLBase.smallImage.rawValue
-        return "\(baseImageURL)\(shortImageURL)"
+        if let url = URL(string: "\(baseImageURL)\(shortImageURL)") {
+            completion(url)
+        }
     }
         
     private init(){}
