@@ -10,7 +10,7 @@ import Foundation
 struct Tv {
     let id: Int
     let name: String
-    let poster_path: String?
-    let first_air_date: String
+    let posterPath: String?
+    let firstAirDate: String
 }
 
