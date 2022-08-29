@@ -14,8 +14,8 @@ struct TVSeriesInfo: Decodable {
     let tagline: String
     let firstAirDate: String
     let voteAverage: Float
-    let genres: [Genres]
+    let genres: [Genre]
     let overview: String
     let homepage: String
-    let cast: [Cast]
+    
 }

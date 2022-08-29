@@ -14,8 +14,8 @@ struct MovieInfo: Decodable {
     let tagline: String?
     let releaseDate: String
     let voteAverage: Float
-    let genres: [Genres]
+    let genres: [Genre]
     let overview: String?
-    let homepage: String
-    let cast: [Cast]
+    let homepage: String?
+    
 }
