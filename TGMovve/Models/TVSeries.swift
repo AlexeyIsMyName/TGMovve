@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TVSeries {
+struct TVSeries: Codable {
     let id: Int
     let name: String
     let posterPath: String?
