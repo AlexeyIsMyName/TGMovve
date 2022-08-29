@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Tv {
+struct TVSeries {
     let id: Int
     let name: String
     let posterPath: String?

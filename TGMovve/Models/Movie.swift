@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Movies {
+struct Movie {
     let id: Int
     let title: String
-    let poster_path: String?
-    let release_date: String
+    let posterPath: String?
+    let releaseDate: String
 }
