@@ -5,9 +5,7 @@
 //  Created by Eduard Tokarev on 29.08.2022.
 //
 
-import Foundation
-
-struct MovieInfo: Decodable {
+struct MovieInfo: Decodable, ShowRepresentable {
     let posterPath: String?
     let id: Int
     let title: String
@@ -17,5 +15,4 @@ struct MovieInfo: Decodable {
     let genres: [Genre]
     let overview: String?
     let homepage: String?
-    
 }
