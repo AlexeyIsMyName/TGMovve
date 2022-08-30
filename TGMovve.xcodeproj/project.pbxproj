@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37A773EB28BE79F20060BFFB /* InfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A773EA28BE79F20060BFFB /* InfoScreenViewController.swift */; };
+		37A7740D28BEB7E60060BFFB /* CastsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A7740C28BEB7E60060BFFB /* CastsCollectionViewCell.swift */; };
 		914580D228BE1733008A6CC3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914580D128BE1733008A6CC3 /* NetworkManager.swift */; };
 		E77FA07F28BC0D37008835C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77FA07E28BC0D37008835C9 /* AppDelegate.swift */; };
 		E77FA08128BC0D37008835C9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77FA08028BC0D37008835C9 /* SceneDelegate.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37A773EA28BE79F20060BFFB /* InfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoScreenViewController.swift; sourceTree = "<group>"; };
+		37A7740C28BEB7E60060BFFB /* CastsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastsCollectionViewCell.swift; sourceTree = "<group>"; };
 		914580D128BE1733008A6CC3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E77FA07B28BC0D37008835C9 /* TGMovve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGMovve.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E77FA07E28BC0D37008835C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 			children = (
 				E77FA08428BC0D37008835C9 /* Main.storyboard */,
 				E77FA08928BC0D3A008835C9 /* LaunchScreen.storyboard */,
+				37A7740C28BEB7E60060BFFB /* CastsCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -97,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				E77FA08228BC0D37008835C9 /* ViewController.swift */,
+				37A773EA28BE79F20060BFFB /* InfoScreenViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -225,6 +231,8 @@
 				F604EF3828BD46F300490D28 /* Cast.swift in Sources */,
 				F604EF3C28BD550400490D28 /* TVSeriesInfo.swift in Sources */,
 				E77FA08128BC0D37008835C9 /* SceneDelegate.swift in Sources */,
+				37A773EB28BE79F20060BFFB /* InfoScreenViewController.swift in Sources */,
+				37A7740D28BEB7E60060BFFB /* CastsCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
