@@ -13,3 +13,7 @@ struct Movie: Decodable {
     let posterPath: String?
     let releaseDate: String
 }
+
+struct MovieData: Decodable {
+    let results: [Movie]
+}

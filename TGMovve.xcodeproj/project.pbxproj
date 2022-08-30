@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		914580D228BE1733008A6CC3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914580D128BE1733008A6CC3 /* NetworkManager.swift */; };
 		E77FA07F28BC0D37008835C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77FA07E28BC0D37008835C9 /* AppDelegate.swift */; };
 		E77FA08128BC0D37008835C9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77FA08028BC0D37008835C9 /* SceneDelegate.swift */; };
 		E77FA08328BC0D37008835C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77FA08228BC0D37008835C9 /* ViewController.swift */; };
 		E77FA08628BC0D37008835C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E77FA08428BC0D37008835C9 /* Main.storyboard */; };
 		E77FA08828BC0D3A008835C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E77FA08728BC0D3A008835C9 /* Assets.xcassets */; };
 		E77FA08B28BC0D3A008835C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E77FA08928BC0D3A008835C9 /* LaunchScreen.storyboard */; };
-		E77FA09328BC0DC1008835C9 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = E77FA09228BC0DC1008835C9 /* .gitignore */; };
 		E7E34F1328BD726C00616FBB /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E34F1228BD726C00616FBB /* URLManager.swift */; };
 		F604EF3428BD3A4C00490D28 /* TVSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = F604EF3328BD3A4C00490D28 /* TVSeries.swift */; };
 		F604EF3628BD3AAD00490D28 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F604EF3528BD3AAD00490D28 /* Movie.swift */; };
@@ -24,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		914580D128BE1733008A6CC3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E77FA07B28BC0D37008835C9 /* TGMovve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGMovve.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E77FA07E28BC0D37008835C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E77FA08028BC0D37008835C9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,7 +33,6 @@
 		E77FA08728BC0D3A008835C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E77FA08A28BC0D3A008835C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E77FA08C28BC0D3A008835C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E77FA09228BC0DC1008835C9 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		E7E34F1228BD726C00616FBB /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
 		F604EF3328BD3A4C00490D28 /* TVSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVSeries.swift; sourceTree = "<group>"; };
 		F604EF3528BD3AAD00490D28 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
@@ -56,7 +56,6 @@
 		E77FA07228BC0D37008835C9 = {
 			isa = PBXGroup;
 			children = (
-				E77FA09228BC0DC1008835C9 /* .gitignore */,
 				E77FA07D28BC0D37008835C9 /* TGMovve */,
 				E77FA07C28BC0D37008835C9 /* Products */,
 			);
@@ -122,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				E7E34F1228BD726C00616FBB /* URLManager.swift */,
+				914580D128BE1733008A6CC3 /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -197,7 +197,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E77FA09328BC0DC1008835C9 /* .gitignore in Resources */,
 				E77FA08B28BC0D3A008835C9 /* LaunchScreen.storyboard in Resources */,
 				E77FA08828BC0D3A008835C9 /* Assets.xcassets in Resources */,
 				E77FA08628BC0D37008835C9 /* Main.storyboard in Resources */,
@@ -215,6 +214,7 @@
 				F604EF3A28BD512E00490D28 /* MovieInfo.swift in Sources */,
 				F604EF3628BD3AAD00490D28 /* Movie.swift in Sources */,
 				E7E34F1328BD726C00616FBB /* URLManager.swift in Sources */,
+				914580D228BE1733008A6CC3 /* NetworkManager.swift in Sources */,
 				E77FA08328BC0D37008835C9 /* ViewController.swift in Sources */,
 				F604EF3428BD3A4C00490D28 /* TVSeries.swift in Sources */,
 				E77FA07F28BC0D37008835C9 /* AppDelegate.swift in Sources */,
