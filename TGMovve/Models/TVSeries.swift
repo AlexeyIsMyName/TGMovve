@@ -14,3 +14,6 @@ struct TVSeries: Decodable {
     let firstAirDate: String
 }
 
+struct TVSeriesData: Decodable {
+    let results: [TVSeries]
+}
