@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3724054A28C008A100925A40 /* CastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3724054928C008A100925A40 /* CastCell.swift */; };
 		37A773EB28BE79F20060BFFB /* InfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A773EA28BE79F20060BFFB /* InfoScreenViewController.swift */; };
 		914580D228BE1733008A6CC3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914580D128BE1733008A6CC3 /* NetworkManager.swift */; };
 		E77FA07F28BC0D37008835C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77FA07E28BC0D37008835C9 /* AppDelegate.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3724054928C008A100925A40 /* CastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCell.swift; sourceTree = "<group>"; };
 		37A773EA28BE79F20060BFFB /* InfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoScreenViewController.swift; sourceTree = "<group>"; };
 		914580D128BE1733008A6CC3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E77FA07B28BC0D37008835C9 /* TGMovve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGMovve.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +62,7 @@
 		E77FA07228BC0D37008835C9 = {
 			isa = PBXGroup;
 			children = (
+				3724054928C008A100925A40 /* CastCell.swift */,
 				E77FA07D28BC0D37008835C9 /* TGMovve */,
 				E77FA07C28BC0D37008835C9 /* Products */,
 			);
@@ -222,6 +225,7 @@
 				E7E34F1628BE31F900616FBB /* ShowRepresentable.swift in Sources */,
 				E7E34F1328BD726C00616FBB /* URLManager.swift in Sources */,
 				914580D228BE1733008A6CC3 /* NetworkManager.swift in Sources */,
+				3724054A28C008A100925A40 /* CastCell.swift in Sources */,
 				E77FA08328BC0D37008835C9 /* ViewController.swift in Sources */,
 				F604EF3428BD3A4C00490D28 /* TVSeries.swift in Sources */,
 				E77FA07F28BC0D37008835C9 /* AppDelegate.swift in Sources */,

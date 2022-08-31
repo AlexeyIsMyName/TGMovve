@@ -9,20 +9,18 @@ import UIKit
 
 class InfoScreenViewController: UIViewController {
     
-    @IBOutlet weak var PosterImage: UIImageView!
-    @IBOutlet weak var VideoNameLabel: UILabel!
-    @IBOutlet weak var InfoLabel: UILabel!
-    @IBOutlet weak var RaitingLabel: UILabel!
-    @IBOutlet weak var DescriptionLabel: UILabel!
+    @IBOutlet weak var posterImage: UIImageView!
+    @IBOutlet weak var videoNameLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var raitingLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     
-    @IBOutlet weak var DetailsButton: UIButton!
-    
-    @IBOutlet weak var CollectionView: UICollectionView!
+    var show: ShowRepresentable!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CollectionView.dataSource = self
-        CollectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     
@@ -30,11 +28,13 @@ class InfoScreenViewController: UIViewController {
     
 }
 
-extension InfoScreenViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+//MARK: UICollectionViewDataSource
+extension InfoScreenViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        <#code#>
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         <#code#>
@@ -42,5 +42,6 @@ extension InfoScreenViewController: UICollectionViewDataSource, UICollectionView
     
     
 }
+
 
 
