@@ -6,6 +6,7 @@
 //
 
 struct TVSeriesInfo: Decodable, ShowRepresentable {
+    
     var title: String {
         return name
     }
@@ -23,4 +24,6 @@ struct TVSeriesInfo: Decodable, ShowRepresentable {
     let genres: [Genre]
     let overview: String?
     let homepage: String?
+    
+    var duration: Int
 }

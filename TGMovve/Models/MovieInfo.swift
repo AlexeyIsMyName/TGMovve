@@ -15,4 +15,6 @@ struct MovieInfo: Decodable, ShowRepresentable {
     let genres: [Genre]
     let overview: String?
     let homepage: String?
+    
+    let duration: Int
 }
