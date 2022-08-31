@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkManager {
     
-    let shared = NetworkManager()
+    static let shared = NetworkManager()
     
     func fetchMovies(with completion: @escaping ([Movie]) -> Void) {
         

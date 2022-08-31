@@ -10,55 +10,53 @@ import UIKit
 class HomeCollectionViewController: UICollectionViewController {
     
     let compositionalLayout: UICollectionViewCompositionalLayout = {
-        let inset: CGFloat = 5
+        let inset: CGFloat = 8
+        let leadingInset: CGFloat = 8
+        let trailingInset: CGFloat = 8
         
         // Items
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: inset, leading: inset, bottom: inset, trailing: inset)
+//        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: leadingInset, bottom: 0, trailing: trailingInset)
         
         // Outer Group
         let outerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4), heightDimension: .fractionalHeight(0.3))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: outerGroupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: leadingInset, bottom: 0, trailing: trailingInset)
         
         // Section
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: inset, leading: inset, bottom: inset, trailing: inset)
+        section.contentInsets = NSDirectionalEdgeInsets(top: inset, leading: leadingInset, bottom: inset, trailing: trailingInset)
         section.orthogonalScrollingBehavior = .continuous
         
         // Supplementary Item
         let headerItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100))
         let headerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerItemSize, elementKind: "header", alignment: .top)
+        headerItem.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: leadingInset, bottom: 8, trailing: trailingInset)
         section.boundarySupplementaryItems = [headerItem]
         
         // Decoration Item
-//        let backgroundItem = NSCollectionLayoutDecorationItem.background(elementKind: "background")
-//        section.decorationItems = [backgroundItem]
+        let backgroundItem = NSCollectionLayoutDecorationItem.background(elementKind: "background")
+        section.decorationItems = [backgroundItem]
         
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.interSectionSpacing = 20
+        
+        let layout = UICollectionViewCompositionalLayout(section: section, configuration: config)
+        
         layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "background")
         
         return layout
     }()
     
-    let contentList: [String: [ContentRepresentable]] = [
-        "Popular Movies": Movie.getMovies(),
-        "TV Shows": TVSeries.getTVSeries()
-    ]
-    
-    let flowLayout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 5
-        layout.minimumLineSpacing = 5
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        return layout
-    }()
+    var contentList: [String: [ContentRepresentable]] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
         collectionView.collectionViewLayout = compositionalLayout
-        collectionView.reloadData()
+        fillData()
     }
     
     private func registerCells() {
@@ -135,5 +133,17 @@ class HomeCollectionViewController: UICollectionViewController {
     
     }
     */
+    
+    private func fillData() {
+        NetworkManager.shared.fetchMovies { movies in
+            self.contentList["Popular Movies"] = movies
+            self.collectionView.reloadData()
+        }
+        
+        NetworkManager.shared.fetchTVSeries { tvShows in
+            self.contentList["TV Shows"] = tvShows
+            self.collectionView.reloadData()
+        }
+    }
 
 }

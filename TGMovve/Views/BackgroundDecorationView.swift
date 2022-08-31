@@ -12,9 +12,7 @@ final class BackgroundDecorationView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        layer.cornerRadius = 8
-        backgroundColor = UIColor(white: 0.85, alpha: 1)
+        backgroundColor = UIColor(white: 1, alpha: 0.1)
     }
     
     required init?(coder: NSCoder) {
