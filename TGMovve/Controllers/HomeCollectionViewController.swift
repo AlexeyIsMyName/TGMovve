@@ -10,31 +10,36 @@ import UIKit
 class HomeCollectionViewController: UICollectionViewController {
     
     let compositionalLayout: UICollectionViewCompositionalLayout = {
-        let inset: CGFloat = 2.5
+        let inset: CGFloat = 5
         
         // Items
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: inset, leading: inset, bottom: inset, trailing: inset)
         
         // Outer Group
-        let outerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.5))
+        let outerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4), heightDimension: .fractionalHeight(0.3))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: outerGroupSize, subitems: [item])
         
         // Section
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: inset, leading: inset, bottom: inset, trailing: inset)
-        section.orthogonalScrollingBehavior = .groupPaging
+        section.orthogonalScrollingBehavior = .continuous
         
         // Supplementary Item
-//        let headerItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100))
-//        let headerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerItemSize, elementKind: "header", alignment: .top)
-//        section.boundarySupplementaryItems = [headerItem]
+        let headerItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100))
+        let headerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerItemSize, elementKind: "header", alignment: .top)
+        section.boundarySupplementaryItems = [headerItem]
         
-        return UICollectionViewCompositionalLayout(section: section)
+        // Decoration Item
+//        let backgroundItem = NSCollectionLayoutDecorationItem.background(elementKind: "background")
+//        section.decorationItems = [backgroundItem]
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "background")
+        
+        return layout
     }()
-    
-    
     
     let contentList: [String: [ContentRepresentable]] = [
         "Popular Movies": Movie.getMovies(),
@@ -57,11 +62,8 @@ class HomeCollectionViewController: UICollectionViewController {
     }
     
     private func registerCells() {
-//        collectionView.register(CollectionReusableView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "ContentHeader")
-        
-//        collectionView.register(UINib(nibName: "PhotoCell", bundle: nil), forCellWithReuseIdentifier: "PhotoCell")
-//        collectionView.register(UINib(nibName: "HeaderSupplementaryView", bundle: nil), forSupplementaryViewOfKind: "header", withReuseIdentifier: "HeaderSupplementaryView")
-//        collectionView.register(UINib(nibName: "NewBannerSupplementaryView", bundle: nil), forSupplementaryViewOfKind: "new-banner", withReuseIdentifier: "NewBannerSupplementaryView")
+        collectionView.register(UINib(nibName: "ContentCell", bundle: nil), forCellWithReuseIdentifier: "ContentCell")
+        collectionView.register(UINib(nibName: "HeaderSupplementaryView", bundle: nil), forSupplementaryViewOfKind: "header", withReuseIdentifier: "ContentHeader")
     }
 
     // MARK: UICollectionViewDataSource
@@ -70,9 +72,12 @@ class HomeCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ContentHeader", for: indexPath) as! CollectionReusableView
-        view.groupNameLabel.text = Array(contentList.keys)[indexPath.section]
-        return view
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ContentHeader", for: indexPath) as? HeaderSupplementaryView else {
+            return HeaderSupplementaryView()
+        }
+        
+        headerView.viewModel = HeaderSupplementaryView.ViewModel(name: Array(contentList.keys)[indexPath.section])
+        return headerView
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -86,7 +91,7 @@ class HomeCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentCell", for: indexPath) as? ContentCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentCell", for: indexPath) as? ContentCell else {
             return UICollectionViewCell()
         }
         
@@ -94,24 +99,8 @@ class HomeCollectionViewController: UICollectionViewController {
         
         if let contentArray = contentList[valueKey] {
             let content = contentArray[indexPath.item]
-            
-            cell.titleLabel.text = content.title
-            cell.dateLabel.text = content.releaseDate
-            
-            
-            DispatchQueue.global().async {
-                URLManager.get.mediumImageFor(content.posterPath!) { imageURL in
-                    guard let imageData = try? Data(contentsOf: imageURL) else { return }
-                    DispatchQueue.main.async {
-                        cell.posterImage.image = UIImage(data: imageData)
-                    }
-                }
-            }
-            
+            cell.viewModel = ContentCell.ViewModel(posterURL: content.posterPath, title: content.title, date: content.releaseDate)
         }
-        
-        
-        
         
         return cell
     }
@@ -147,18 +136,4 @@ class HomeCollectionViewController: UICollectionViewController {
     }
     */
 
-}
-
-extension HomeCollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: UIScreen.main.bounds.width, height: 200)
-//        return CGSize(width: 150, height: 200)
-        
-        let width = collectionView.bounds.width
-        let numberOfItemsPerRow: CGFloat = 2
-        let spacing: CGFloat = flowLayout.minimumInteritemSpacing
-        let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
-        let itemDimension = floor(availableWidth / numberOfItemsPerRow)
-        return CGSize(width: itemDimension, height: itemDimension)
-    }
 }
