@@ -12,7 +12,3 @@ struct Cast: Decodable {
     let character: String
     let profilePath: String?
 }
-
-struct CastData: Decodable {
-    let cast: [Cast]
-}

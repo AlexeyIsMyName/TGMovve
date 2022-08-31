@@ -112,7 +112,7 @@ class NetworkManager {
         }
     }
     
-    func fetchCastForMovies(movieID: Int, completion: @escaping ([Cast]) -> Void) {
+    func fetchMovieCastFor(movieID: Int, completion: @escaping ([Cast]) -> Void) {
         
         URLManager.get.movieCreditsFor(movieID: movieID) { url in
             URLSession.shared.dataTask(with: url) { (data, _, error) in
@@ -126,9 +126,9 @@ class NetworkManager {
                 do {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let castData = try decoder.decode(CastData.self, from: data)
+                    let cast = try decoder.decode([Cast].self, from: data)
                     DispatchQueue.main.async {
-                        completion(castData.cast)
+                        completion(cast)
                     }
                 } catch let error {
                     print(error)
@@ -137,7 +137,7 @@ class NetworkManager {
         }
     }
     
-    func fetchCastForTVSeries(tvID: Int, completion: @escaping ([Cast]) -> Void) {
+    func fetchTVSeriesCastFor(tvID: Int, completion: @escaping ([Cast]) -> Void) {
         
         URLManager.get.tvSeriesCreditsFor(tvID: tvID) { url in
             URLSession.shared.dataTask(with: url) { (data, _, error) in
@@ -151,9 +151,9 @@ class NetworkManager {
                 do {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let castData = try decoder.decode(CastData.self, from: data)
+                    let cast = try decoder.decode([Cast].self, from: data)
                     DispatchQueue.main.async {
-                        completion(castData.cast)
+                        completion(cast)
                     }
                 } catch let error {
                     print(error)
