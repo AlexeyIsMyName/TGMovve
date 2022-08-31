@@ -12,7 +12,7 @@ final class BackgroundDecorationView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(white: 1, alpha: 0.1)
+        backgroundColor = UIColor(white: 1, alpha: 0.05)
     }
     
     required init?(coder: NSCoder) {

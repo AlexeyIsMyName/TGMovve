@@ -23,7 +23,16 @@ class ContentCell: UICollectionViewCell {
         didSet {
             
             titleLabel.text = viewModel.title
-            dateLabel.text = viewModel.date
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US")
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date = dateFormatter.date(from:viewModel.date)
+
+            if let date = date {
+                dateFormatter.dateFormat = "MMM dd, yyyy"
+                dateLabel.text = dateFormatter.string(from: date)
+            }
             
             if let posterURL = viewModel.posterURL {
                 DispatchQueue.global().async {
