@@ -94,7 +94,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="5Qa-Tm-xHF">
                                 <rect key="frame" x="14" y="394" width="386" height="400"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iron Man" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNO-XL-DHU" userLabel="Name Label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iron Man" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qNO-XL-DHU" userLabel="Name Label">
                                         <rect key="frame" x="0.0" y="0.0" width="386" height="54"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -128,8 +128,11 @@
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Fli-hM-ABM">
                                         <rect key="frame" x="0.0" y="307" width="386" height="93"/>
                                         <color key="backgroundColor" red="0.3921568627" green="0.75294117650000003" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="93" id="UH2-hr-Eih"/>
+                                        </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="IYC-5d-FBh">
-                                            <size key="itemSize" width="80" height="80"/>
+                                            <size key="itemSize" width="80" height="90"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -175,9 +178,7 @@
                                                 <connections>
                                                     <outlet property="actorImage" destination="0al-kb-8Po" id="aTX-Dq-eDL"/>
                                                     <outlet property="actorName" destination="sYc-Xj-AA5" id="G0n-ZF-QYc"/>
-                                                    <outlet property="castImageView" destination="0al-kb-8Po" id="Qa5-pH-PRu"/>
                                                     <outlet property="castName" destination="Bg0-Mo-huA" id="vqF-IV-cFf"/>
-                                                    <outlet property="castPerson" destination="Bg0-Mo-huA" id="R1Q-Rq-cv5"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -221,7 +222,6 @@
                     <connections>
                         <outlet property="collectionView" destination="Fli-hM-ABM" id="eV0-0N-Mbk"/>
                         <outlet property="descriptionLabel" destination="JBX-cW-j57" id="JQZ-OR-UMp"/>
-                        <outlet property="detailsButton" destination="91z-xa-N1s" id="sBR-80-sYr"/>
                         <outlet property="infoLabel" destination="DQc-dM-PdS" id="QpM-im-TxQ"/>
                         <outlet property="posterImage" destination="pRq-2k-feG" id="zFb-LB-A2N"/>
                         <outlet property="raitingLabel" destination="Tke-dk-ck3" id="DsJ-3D-tqI"/>

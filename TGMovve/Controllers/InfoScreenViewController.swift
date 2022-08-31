@@ -14,16 +14,25 @@ class InfoScreenViewController: UIViewController {
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var raitingLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     var show: ShowRepresentable!
+    var cast: [Cast]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
+        getShow()
+        getCast()
     }
     
-    
+    func updateUI() {
+        videoNameLabel.text = show.title
+        infoLabel.text = "\(show.releaseDate), жанр, длительность (runtime)"
+        raitingLabel.text = String(show.voteAverage)
+        descriptionLabel.text = show.overview
+    }
     
     
 }
@@ -32,16 +41,57 @@ class InfoScreenViewController: UIViewController {
 extension InfoScreenViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
+        cast.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
+        guard let castCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CastCell", for: indexPath) as? CastCell else {
+            return CastCell()
+        }
+        
+        let cast = cast[indexPath.item]
+        castCell.actorName.text = cast.name
+        castCell.castName.text = cast.character
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        return castCell
     }
-    
-    
 }
 
+//MARK: Networking
+extension InfoScreenViewController {
+    func getShow() {
+        let movieInfo = MovieInfo(posterPath: "/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",
+                                  id: 616037,
+                                  title: "Thor: Love and Thunder",
+                                  tagline: "The one is not the only.",
+                                  releaseDate: "2022-07-06",
+                                  voteAverage: 6.767,
+                                  genres: [Genre(id: 28, name: "Action"), Genre(id: 12, name: "Adventure"), Genre(id: 14, name: "Fantasy")],
+                                  overview: "After his retirement is interrupted by Gorr the God Butcher, a galactic killer who seeks the extinction of the gods, Thor Odinson enlists the help of King Valkyrie, Korg, and ex-girlfriend Jane Foster, who now inexplicably wields Mjolnir as the Relatively Mighty Girl Thor. Together they embark upon a harrowing cosmic adventure to uncover the mystery of the God Butcher’s vengeance and stop him before it’s too late.",
+                                  homepage: "https://www.marvel.com/movies/thor-love-and-thunder")
+        show = movieInfo
+        updateUI()
+    }
+    
+    func getCast() {
+        let castInfo = [
+            Cast(name: "Chris Hemsworth", character: "Thor Odinson", profilePath: "/jpurJ9jAcLCYjgHHfYF32m3zJYm.jpg"),
+            Cast(name: "Christian Bale", character: "Gorr", profilePath: "/qCpZn2e3dimwbryLnqxZuI88PTi.jpg"),
+            Cast(name: "Tessa Thompson", character: "King Valkyrie", profilePath: "/fycqdiiM6dsNSbnONBVVQ57ILV1.jpg")
+        ]
+        cast = castInfo
+        collectionView.reloadData()
+    }
+}
 
 
