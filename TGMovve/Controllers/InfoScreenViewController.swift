@@ -27,15 +27,42 @@ class InfoScreenViewController: UIViewController {
         getCast()
     }
     
+    
     func updateUI() {
         videoNameLabel.text = show.title
         infoLabel.text = "\(show.releaseDate.prefix(4)), Жанр, \(show.duration / 60) h \(show.duration - (show.duration / 60) * 60) m"
         
-//        raitingLabel.text = String(show.voteAverage)
-        raitingLabel.text = "8.2 ⭐⭐⭐⭐⭐"
+        
+        //MARK: Raiting round-up
+        var rating = round(show.voteAverage * 10) / 10.0
+        
+        switch show.voteAverage {
+        case 0.0...1.0:
+            raitingLabel.text = "\(rating) 🌗🌑🌑🌑🌑"
+        case 1.1...2.0:
+            raitingLabel.text = "\(rating) 🌕🌑🌑🌑🌑"
+        case 2.1...3.0:
+            raitingLabel.text = "\(rating) 🌕🌗🌑🌑🌑"
+        case 3.1...4.0:
+            raitingLabel.text = "\(rating) 🌕🌕🌑🌑🌑"
+        case 4.1...5.0:
+            raitingLabel.text = "\(rating) 🌕🌕🌗🌑🌑"
+        case 5.1...6.0:
+            raitingLabel.text = "\(rating) 🌕🌕🌕🌑🌑"
+        case 6.1...7.0:
+            raitingLabel.text = "\(rating) 🌕🌕🌕🌗🌑"
+        case 7.1...8.0:
+            raitingLabel.text = "\(rating) 🌕🌕🌕🌕🌑"
+        case 8.1...9.0:
+            raitingLabel.text = "\(rating) 🌕🌕🌕🌕🌗"
+        case 9.1...10.0:
+            raitingLabel.text = "\(rating) 🌕🌕🌕🌕🌕"
+        default: "\(rating) 🌑🌑🌑🌑🌑"
+        }
+        
         descriptionLabel.text = show.overview
     }
-
+    
 }
 
 //MARK: UICollectionViewDataSource
@@ -55,10 +82,10 @@ extension InfoScreenViewController: UICollectionViewDataSource {
         castCell.actorName.text = cast.name
         castCell.castName.text = cast.character
         
-     
+        
         // дописать реализацию получения картинки
         
-
+        
         return castCell
     }
 }
@@ -76,7 +103,7 @@ extension InfoScreenViewController {
                                   overview: "After his retirement is interrupted by Gorr the God Butcher, a galactic killer who seeks the extinction of the gods, Thor Odinson enlists the help of King Valkyrie, Korg, and ex-girlfriend Jane Foster, who now inexplicably wields Mjolnir as the Relatively Mighty Girl Thor. Together they embark upon a harrowing cosmic adventure to uncover the mystery of the God Butcher’s vengeance and stop him before it’s too late.",
                                   homepage: "https://www.marvel.com/movies/thor-love-and-thunder",
                                   duration: 223)
-            
+        
         show = movieInfo
         updateUI()
     }

@@ -96,7 +96,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iron Man" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qNO-XL-DHU" userLabel="Name Label">
                                         <rect key="frame" x="0.0" y="0.0" width="386" height="54"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="45"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -145,20 +145,29 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="79" height="79.666666666666629"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="0Lc-Jh-UZc">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="0Lc-Jh-UZc">
                                                             <rect key="frame" x="0.0" y="0.0" width="79" height="79.666666666666671"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Robert-Downey-Jr" translatesAutoresizingMaskIntoConstraints="NO" id="0al-kb-8Po">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="79" height="61"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Robert-Downey-Jr" translatesAutoresizingMaskIntoConstraints="NO" id="0al-kb-8Po">
+                                                                    <rect key="frame" x="7" y="0.0" width="65" height="65"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="65" id="Vc5-67-QfV"/>
+                                                                        <constraint firstAttribute="width" constant="65" id="pEO-gJ-Kan"/>
+                                                                    </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                            <real key="value" value="32.5"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Robert Downey Jr." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sYc-Xj-AA5" userLabel="Actor Label">
-                                                                    <rect key="frame" x="0.0" y="62.999999999999993" width="79" height="8.6666666666666643"/>
+                                                                    <rect key="frame" x="7.3333333333333357" y="66" width="64.666666666666657" height="6.6666666666666714"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tony Stark" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bg0-Mo-huA" userLabel="Cast Label">
-                                                                    <rect key="frame" x="0.0" y="73.666666666666671" width="79" height="6"/>
+                                                                    <rect key="frame" x="26" y="73.666666666666671" width="27" height="6"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="5"/>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
