@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkManager {
     
-    let shared = NetworkManager()
+    static let shared = NetworkManager()
     
     func fetchMovies(with completion: @escaping ([Movie]) -> Void) {
         
@@ -32,10 +32,8 @@ class NetworkManager {
                 } catch let error {
                     print(error)
                 }
-                
             }.resume()
         }
-        
     }
     
     func fetchTVSeries(with completion: @escaping ([TVSeries]) -> Void) {
@@ -59,9 +57,109 @@ class NetworkManager {
                 } catch let error {
                     print(error)
                 }
-                
             }.resume()
         }
     }
+    
+    func fetchMovieInfoFor(movieID: Int, completion: @escaping (MovieInfo) -> Void) {
+        
+        URLManager.get.movieDetailsFor(movieID: movieID) {  url in
+            URLSession.shared.dataTask(with: url) { (data, _, error) in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                
+                guard let data = data else { return }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let movieInfo = try decoder.decode(MovieInfo.self, from: data)
+                    DispatchQueue.main.async {
+                        completion(movieInfo)
+                    }
+                } catch let error {
+                    print(error)
+                }
+            }.resume()
+        }
+    }
+    
+    func fetchTVSeriesInfoFor(tvID: Int, completion: @escaping (TVSeriesInfo) -> Void) {
+        
+        URLManager.get.tvSeriesDetailsFor(tvID: tvID) { url in
+            URLSession.shared.dataTask(with: url) { (data, _, error) in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                
+                guard let data = data else { return }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let tvSeriesInfo = try decoder.decode(TVSeriesInfo.self, from: data)
+                    DispatchQueue.main.async {
+                        completion(tvSeriesInfo)
+                    }
+                } catch let error {
+                    print(error)
+                }
+            }.resume()
+        }
+    }
+    
+    func fetchMovieCastFor(movieID: Int, completion: @escaping ([Cast]) -> Void) {
+        
+        URLManager.get.movieCreditsFor(movieID: movieID) { url in
+            URLSession.shared.dataTask(with: url) { (data, _, error) in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                
+                guard let data = data else { return }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let cast = try decoder.decode([Cast].self, from: data)
+                    DispatchQueue.main.async {
+                        completion(cast)
+                    }
+                } catch let error {
+                    print(error)
+                }
+            }.resume()
+        }
+    }
+    
+    func fetchTVSeriesCastFor(tvID: Int, completion: @escaping ([Cast]) -> Void) {
+        
+        URLManager.get.tvSeriesCreditsFor(tvID: tvID) { url in
+            URLSession.shared.dataTask(with: url) { (data, _, error) in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                
+                guard let data = data else { return }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let cast = try decoder.decode([Cast].self, from: data)
+                    DispatchQueue.main.async {
+                        completion(cast)
+                    }
+                } catch let error {
+                    print(error)
+                }
+            }.resume()
+        }
+    }
+    
     private init() {}
 }

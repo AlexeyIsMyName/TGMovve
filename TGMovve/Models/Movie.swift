@@ -5,7 +5,7 @@
 //  Created by Eduard Tokarev on 29.08.2022.
 //
 
-struct Movie: Decodable {
+struct Movie: Decodable, ContentRepresentable {
     let id: Int
     let title: String
     let posterPath: String?
