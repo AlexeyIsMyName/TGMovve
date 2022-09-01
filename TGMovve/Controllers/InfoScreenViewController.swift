@@ -27,6 +27,12 @@ class InfoScreenViewController: UIViewController {
         getCast()
     }
     
+//   func prepareWith(content: ContentRepresentable)
+
+    
+    
+    
+    
     
     func updateUI() {
         videoNameLabel.text = show.title
@@ -34,10 +40,10 @@ class InfoScreenViewController: UIViewController {
         
         
         //MARK: Raiting round-up
-        var rating = round(show.voteAverage * 10) / 10.0
+        let rating = round(show.voteAverage * 10) / 10.0
         
         switch show.voteAverage {
-        case 0.0...1.0:
+        case 0.1...1.0:
             raitingLabel.text = "\(rating) 🌗🌑🌑🌑🌑"
         case 1.1...2.0:
             raitingLabel.text = "\(rating) 🌕🌑🌑🌑🌑"
@@ -57,7 +63,7 @@ class InfoScreenViewController: UIViewController {
             raitingLabel.text = "\(rating) 🌕🌕🌕🌕🌗"
         case 9.1...10.0:
             raitingLabel.text = "\(rating) 🌕🌕🌕🌕🌕"
-        default: "\(rating) 🌑🌑🌑🌑🌑"
+        default: raitingLabel.text = "\(rating) 🌑🌑🌑🌑🌑"
         }
         
         descriptionLabel.text = show.overview
