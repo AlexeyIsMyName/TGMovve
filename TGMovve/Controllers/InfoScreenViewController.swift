@@ -36,7 +36,7 @@ class InfoScreenViewController: UIViewController {
     
     func updateUI() {
         videoNameLabel.text = show.title
-        infoLabel.text = "\(show.releaseDate.prefix(4)), Жанр, \(show.duration / 60) h \(show.duration - (show.duration / 60) * 60) m"
+        infoLabel.text = "\(show.releaseDate.prefix(4)), Жанр, \((show.runtime ?? nil) / 60) h \(show.runtime - ((show.runtime ?? nil) / 60) * 60) m"
         
         
         //MARK: Raiting round-up
@@ -108,7 +108,7 @@ extension InfoScreenViewController {
                                   genres: [Genre(id: 28, name: "Action"), Genre(id: 12, name: "Adventure"), Genre(id: 14, name: "Fantasy")],
                                   overview: "After his retirement is interrupted by Gorr the God Butcher, a galactic killer who seeks the extinction of the gods, Thor Odinson enlists the help of King Valkyrie, Korg, and ex-girlfriend Jane Foster, who now inexplicably wields Mjolnir as the Relatively Mighty Girl Thor. Together they embark upon a harrowing cosmic adventure to uncover the mystery of the God Butcher’s vengeance and stop him before it’s too late.",
                                   homepage: "https://www.marvel.com/movies/thor-love-and-thunder",
-                                  duration: 223)
+                                  runtime: 223)
         
         show = movieInfo
         updateUI()

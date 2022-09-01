@@ -6,6 +6,7 @@
 //
 
 struct MovieInfo: Decodable, ShowRepresentable {
+    
     let posterPath: String?
     let id: Int
     let title: String
