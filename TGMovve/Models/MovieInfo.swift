@@ -6,6 +6,7 @@
 //
 
 struct MovieInfo: Decodable, ShowRepresentable {
+    
     let posterPath: String?
     let id: Int
     let title: String
@@ -15,4 +16,5 @@ struct MovieInfo: Decodable, ShowRepresentable {
     let genres: [Genre]
     let overview: String?
     let homepage: String?
+    let runtime: Int?
 }

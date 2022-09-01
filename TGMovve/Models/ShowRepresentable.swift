@@ -15,4 +15,5 @@ protocol ShowRepresentable {
     var genres: [Genre] { get }
     var overview: String? { get }
     var homepage: String? { get }
+    var runtime: Int? { get }
 }

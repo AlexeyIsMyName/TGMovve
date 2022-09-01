@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3724054A28C008A100925A40 /* CastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3724054928C008A100925A40 /* CastCell.swift */; };
+		37A773EB28BE79F20060BFFB /* InfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A773EA28BE79F20060BFFB /* InfoScreenViewController.swift */; };
 		914580D228BE1733008A6CC3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914580D128BE1733008A6CC3 /* NetworkManager.swift */; };
 		917BF82328C15CB900A1B7B8 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917BF82128C15CB900A1B7B8 /* FavoriteCell.swift */; };
 		917BF82428C15CB900A1B7B8 /* FavoriteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917BF82228C15CB900A1B7B8 /* FavoriteCell.xib */; };
@@ -35,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3724054928C008A100925A40 /* CastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCell.swift; sourceTree = "<group>"; };
+		37A773EA28BE79F20060BFFB /* InfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoScreenViewController.swift; sourceTree = "<group>"; };
 		914580D128BE1733008A6CC3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		917BF82128C15CB900A1B7B8 /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		917BF82228C15CB900A1B7B8 /* FavoriteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteCell.xib; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 		E77FA07228BC0D37008835C9 = {
 			isa = PBXGroup;
 			children = (
+				3724054928C008A100925A40 /* CastCell.swift */,
 				E77FA07D28BC0D37008835C9 /* TGMovve */,
 				E77FA07C28BC0D37008835C9 /* Products */,
 			);
@@ -131,6 +136,7 @@
 		E77FA09528BC10A9008835C9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				37A773EA28BE79F20060BFFB /* InfoScreenViewController.swift */,
 				E7363A9628BEB791005A97A3 /* HomeCollectionViewController.swift */,
 				91E966DE28C1360200FED9F0 /* FavoritesViewController.swift */,
 			);
@@ -266,6 +272,7 @@
 				E7E34F1328BD726C00616FBB /* URLManager.swift in Sources */,
 				E7363A9728BEB791005A97A3 /* HomeCollectionViewController.swift in Sources */,
 				914580D228BE1733008A6CC3 /* NetworkManager.swift in Sources */,
+				3724054A28C008A100925A40 /* CastCell.swift in Sources */,
 				F604EF3428BD3A4C00490D28 /* TVSeries.swift in Sources */,
 				E77FA07F28BC0D37008835C9 /* AppDelegate.swift in Sources */,
 				F604EF3828BD46F300490D28 /* Cast.swift in Sources */,
@@ -273,6 +280,7 @@
 				91E966E228C1374900FED9F0 /* DataModel.xcdatamodeld in Sources */,
 				F604EF3C28BD550400490D28 /* TVSeriesInfo.swift in Sources */,
 				E77FA08128BC0D37008835C9 /* SceneDelegate.swift in Sources */,
+				37A773EB28BE79F20060BFFB /* InfoScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
