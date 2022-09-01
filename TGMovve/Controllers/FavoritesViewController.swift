@@ -17,6 +17,7 @@ class FavoritesViewController: UITableViewController {
         super.viewDidLoad()
         
         loadContent()
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -34,6 +35,7 @@ class FavoritesViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(contentList.count)
         return contentList.count
     }
 

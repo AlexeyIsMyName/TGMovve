@@ -11,7 +11,7 @@
         <!--Favourites-->
         <scene sceneID="Hdv-k5-kYL">
             <objects>
-                <tableViewController id="ySM-Nf-e5w" sceneMemberID="viewController">
+                <tableViewController id="ySM-Nf-e5w" customClass="FavoritesViewController" customModule="TGMovve" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Iuo-hj-Jji">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -179,7 +179,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FL1-jf-rmF"/>
+        <segue reference="DJs-CH-057"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>
