@@ -11,40 +11,37 @@ class HomeCollectionViewController: UICollectionViewController {
     
     let compositionalLayout: UICollectionViewCompositionalLayout = {
         let inset: CGFloat = 8
-        let leadingInset: CGFloat = 8
-        let trailingInset: CGFloat = 8
         
-        // Items
+        // Item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: leadingInset, bottom: 0, trailing: trailingInset)
         
-        // Outer Group
+        // Group
         let outerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4), heightDimension: .fractionalHeight(0.3))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: outerGroupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: leadingInset, bottom: 0, trailing: trailingInset)
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: inset, bottom: 0, trailing: inset)
         
         // Section
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: inset, leading: leadingInset, bottom: inset, trailing: trailingInset)
+        section.contentInsets = NSDirectionalEdgeInsets(top: inset, leading: inset, bottom: inset, trailing: inset)
         section.orthogonalScrollingBehavior = .continuous
         
-        // Supplementary Item
+        // Supplementary Item - HEADER
         let headerItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100))
         let headerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerItemSize, elementKind: "header", alignment: .top)
-        headerItem.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: leadingInset, bottom: 8, trailing: trailingInset)
+        headerItem.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: inset, bottom: 8, trailing: inset)
         section.boundarySupplementaryItems = [headerItem]
         
-        // Decoration Item
+        // Decoration Item - BACKGROUND
         let backgroundItem = NSCollectionLayoutDecorationItem.background(elementKind: "background")
         section.decorationItems = [backgroundItem]
         
-        
+        // Section Configuration
         let config = UICollectionViewCompositionalLayoutConfiguration()
         config.interSectionSpacing = 20
         
+        // Make UICollectionViewCompositionalLayout
         let layout = UICollectionViewCompositionalLayout(section: section, configuration: config)
-        
         layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "background")
         
         return layout
@@ -64,6 +61,7 @@ class HomeCollectionViewController: UICollectionViewController {
         collectionView.register(UINib(nibName: "HeaderSupplementaryView", bundle: nil), forSupplementaryViewOfKind: "header", withReuseIdentifier: "ContentHeader")
     }
 
+    
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return contentList.values.count
@@ -89,7 +87,7 @@ class HomeCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentCell", for: indexPath) as? ContentCell else {
+        guard let contentCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentCell", for: indexPath) as? ContentCell else {
             return UICollectionViewCell()
         }
         
@@ -97,10 +95,15 @@ class HomeCollectionViewController: UICollectionViewController {
         
         if let contentArray = contentList[valueKey] {
             let content = contentArray[indexPath.item]
-            cell.viewModel = ContentCell.ViewModel(posterURL: content.posterPath, title: content.title, date: content.releaseDate)
+            
+            contentCell.viewModel = ContentCell.ViewModel(
+                posterURL: content.posterPath,
+                title: content.title,
+                date: content.releaseDate
+            )
         }
         
-        return cell
+        return contentCell
     }
 
     
@@ -108,6 +111,7 @@ class HomeCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ShowDetailsFromHome", sender: nil)
     }
+    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
