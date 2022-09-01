@@ -7,7 +7,7 @@
 
 import UIKit
 
-/// A basic decoration view used for section backgrounds.
+// A basic decoration view used for section backgrounds.
 final class BackgroundDecorationView: UICollectionReusableView {
     
     override init(frame: CGRect) {
