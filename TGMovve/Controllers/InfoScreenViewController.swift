@@ -28,10 +28,6 @@ class InfoScreenViewController: UIViewController {
     }
     
 //   func prepareWith(content: ContentRepresentable)
-
-    
-    
-    
     
     
     func updateUI() {
