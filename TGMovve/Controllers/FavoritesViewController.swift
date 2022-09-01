@@ -13,6 +13,13 @@ class FavoritesViewController: UITableViewController {
     var contentList = [Content]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.rowHeight = 100
+        tableView.register(UINib(nibName: "FavoriteCell", bundle: nil), forCellReuseIdentifier: "TableCell")
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadContent()
@@ -27,11 +34,32 @@ class FavoritesViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! FavoriteCell
         
         let content = contentList[indexPath.row]
         
-        cell.textLabel?.text = content.title
+        cell.titleLabel.text = content.title
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from:content.releaseData!)
+
+        if let date = date {
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            cell.dateLabel.text = dateFormatter.string(from: date)
+        }
+        
+        if let posterURL = content.posterPath {
+            DispatchQueue.global().async {
+                URLManager.get.smallImageFor(posterURL) { imageURL in
+                    guard let imageData = try? Data(contentsOf: imageURL) else { return }
+                    DispatchQueue.main.async {
+                        cell.posterImage.image = UIImage(data: imageData)
+                    }
+                }
+            }
+        }
         
         return cell
     }
