@@ -24,14 +24,14 @@ class FavoritesViewController: UITableViewController {
         loadContent()
         tableView.reloadData()
     }
-
+    
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(contentList.count)
         return contentList.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! FavoriteCell
         
@@ -43,7 +43,7 @@ class FavoritesViewController: UITableViewController {
         dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from:content.releaseData!)
-
+        
         if let date = date {
             dateFormatter.dateFormat = "MMM dd, yyyy"
             cell.dateLabel.text = dateFormatter.string(from: date)
@@ -68,13 +68,20 @@ class FavoritesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ShowDetails", sender: nil)
     }
-
+    
     
     //MARK: - Navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         
-     }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let indexPath = tableView.indexPathForSelectedRow else {
+            return
+        }
+        
+        guard let infoScreenVC = segue.destination as? InfoScreenViewController else { return }
+        let content = contentList[indexPath.item]
+        infoScreenVC.prepareWith(content)
+    }
+    
     
     // MARK: - Core Data method
     func loadContent() {

@@ -125,9 +125,9 @@ class NetworkManager {
                 do {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let cast = try decoder.decode([Cast].self, from: data)
+                    let castData = try decoder.decode(CastData.self, from: data)
                     DispatchQueue.main.async {
-                        completion(cast)
+                        completion(castData.cast)
                     }
                 } catch let error {
                     print(error)
@@ -150,9 +150,9 @@ class NetworkManager {
                 do {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let cast = try decoder.decode([Cast].self, from: data)
+                    let castData = try decoder.decode(CastData.self, from: data)
                     DispatchQueue.main.async {
-                        completion(cast)
+                        completion(castData.cast)
                     }
                 } catch let error {
                     print(error)

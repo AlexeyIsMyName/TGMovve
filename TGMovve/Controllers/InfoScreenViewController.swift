@@ -6,123 +6,195 @@
 //
 
 import UIKit
+import CoreData
 
 class InfoScreenViewController: UIViewController {
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var videoNameLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var raitingLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet var stars: [UIImageView]!
+    @IBOutlet weak var detailsButton: UIButton!
+    @IBOutlet weak var bookmarkButton: UIBarButtonItem!
     
     var show: ShowRepresentable!
-    var cast: [Cast]!
+    var cast: [Cast]?
+    
+    var runtime: String {
+        guard let runtime = show.runtime else {return ""}
+        return ", \(runtime / 60) h \(runtime - (runtime / 60) * 60) m"
+    }
+    
+    var genre: String {
+        show.genres.map {$0.name}.joined(separator: ", ")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
-        getShow()
-        getCast()
+    }
+    
+    @IBAction func backButtonPressed(_ sender: Any) {
+        dismiss(animated: true)
+    }
+    
+    @IBAction func bookmarkButtonPressed(_ sender: Any) {
+        
+        let newContent = Content(context: self.context)
+        newContent.id = Int32(show.id)
+        newContent.title = show.title
+        newContent.posterPath = show.posterPath
+        newContent.releaseData = show.releaseDate
+        
+        if let _ = show as? MovieInfo {
+            newContent.type = "Movie"
+        }
+        
+        if let _ = show as? TVSeriesInfo {
+            newContent.type = "TVSeries"
+        }
+        
+        do {
+            try context.save()
+            bookmarkButton.image = UIImage(systemName: "bookmark.fill")
+        } catch {
+            print("Error saving context \(error)")
+        }
+    }
+    
+    @IBAction func detailsButtonPressed(_ sender: Any) {
+        UIApplication.shared.open(URL(string: show.homepage!)!)
     }
     
     func updateUI() {
         videoNameLabel.text = show.title
-//        infoLabel.text = "\(show.releaseDate.prefix(4)), Жанр, \((show.runtime ?? 0) / 60) h \(show.runtime - ((show.runtime ?? 0) / 60) * 60) m"
+        infoLabel.text = "\(show.releaseDate.prefix(4)), \(genre) \(runtime)"
+        if show.homepage != nil {
+            detailsButton.isEnabled = true
+        }
+        setRating()
+        descriptionLabel.text = show.overview
         
-        
-        //MARK: Raiting round-up
-        let rating = round(show.voteAverage * 10) / 10.0
-        
-        switch show.voteAverage {
-        case 0.1...1.0:
-            raitingLabel.text = "\(rating) 🌗🌑🌑🌑🌑"
-        case 1.1...2.0:
-            raitingLabel.text = "\(rating) 🌕🌑🌑🌑🌑"
-        case 2.1...3.0:
-            raitingLabel.text = "\(rating) 🌕🌗🌑🌑🌑"
-        case 3.1...4.0:
-            raitingLabel.text = "\(rating) 🌕🌕🌑🌑🌑"
-        case 4.1...5.0:
-            raitingLabel.text = "\(rating) 🌕🌕🌗🌑🌑"
-        case 5.1...6.0:
-            raitingLabel.text = "\(rating) 🌕🌕🌕🌑🌑"
-        case 6.1...7.0:
-            raitingLabel.text = "\(rating) 🌕🌕🌕🌗🌑"
-        case 7.1...8.0:
-            raitingLabel.text = "\(rating) 🌕🌕🌕🌕🌑"
-        case 8.1...9.0:
-            raitingLabel.text = "\(rating) 🌕🌕🌕🌕🌗"
-        case 9.1...10.0:
-            raitingLabel.text = "\(rating) 🌕🌕🌕🌕🌕"
-        default: raitingLabel.text = "\(rating) 🌑🌑🌑🌑🌑"
+        if let posterURL = show.posterPath {
+            DispatchQueue.global().async {
+                URLManager.get.largeImageFor(posterURL) { imageURL in
+                    guard let imageData = try? Data(contentsOf: imageURL) else { return }
+                    DispatchQueue.main.async {
+                        self.posterImage.image = UIImage(data: imageData)
+                    }
+                }
+            }
         }
         
-        descriptionLabel.text = show.overview
     }
     
+    func prepareWith(_ content: ContentRepresentable) {
+        if let movie = content as? Movie {
+            //вызов метода №1
+            getMovieInfoFor(id: movie.id)
+        }
+        if let tvSeries = content as? TVSeries {
+            //вызов метода №2
+            getTVSeriesInfoFor(id: tvSeries.id)
+        }
+    }
+    
+    func prepareWith(_ content: Content) {
+        if content.type == "Movie" {
+            //вызов метода №1
+            getMovieInfoFor(id: Int(content.id))
+        }
+        
+        if content.type == "TVSeries" {
+            //вызов метода №2
+            getTVSeriesInfoFor(id: Int(content.id))
+        }
+    }
 }
 
 //MARK: UICollectionViewDataSource
 extension InfoScreenViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        cast.count
+        print(cast?.count ?? 0)
+        return cast?.count ?? 0
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let castCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CastCell", for: indexPath) as? CastCell else {
             return CastCell()
         }
         
-        let cast = cast[indexPath.item]
-        castCell.actorName.text = cast.name
-        castCell.castName.text = cast.character
-        
-        
-        // дописать реализацию получения картинки
-        
-        
+        if let cast = cast?[indexPath.item] {
+            castCell.actorName.text = cast.name
+            castCell.castName.text = cast.character
+            
+            if let posterURL = cast.profilePath {
+                DispatchQueue.global().async {
+                    URLManager.get.smallImageFor(posterURL) { imageURL in
+                        guard let imageData = try? Data(contentsOf: imageURL) else { return }
+                        DispatchQueue.main.async {
+                            castCell.actorImage.image = UIImage(data: imageData)
+                        }
+                    }
+                }
+            }
+        }
         return castCell
     }
 }
 
 //MARK: Networking
 extension InfoScreenViewController {
-    func getShow() {
-        let movieInfo = MovieInfo(posterPath: "/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",
-                                  id: 616037,
-                                  title: "Thor: Love and Thunder",
-                                  tagline: "The one is not the only.",
-                                  releaseDate: "2022-07-06",
-                                  voteAverage: 6.767,
-                                  genres: [Genre(id: 28, name: "Action"), Genre(id: 12, name: "Adventure"), Genre(id: 14, name: "Fantasy")],
-                                  overview: "After his retirement is interrupted by Gorr the God Butcher, a galactic killer who seeks the extinction of the gods, Thor Odinson enlists the help of King Valkyrie, Korg, and ex-girlfriend Jane Foster, who now inexplicably wields Mjolnir as the Relatively Mighty Girl Thor. Together they embark upon a harrowing cosmic adventure to uncover the mystery of the God Butcher’s vengeance and stop him before it’s too late.",
-                                  homepage: "https://www.marvel.com/movies/thor-love-and-thunder",
-                                  runtime: 223)
-        
-        show = movieInfo
-        updateUI()
+    
+    func getMovieInfoFor(id: Int) {
+        NetworkManager.shared.fetchMovieInfoFor(movieID: id) { movieInfo in
+            self.show = movieInfo
+            self.updateUI()
+        }
+        NetworkManager.shared.fetchMovieCastFor(movieID: id) { castInfo in
+            self.cast = castInfo
+            self.collectionView.reloadData()
+        }
     }
     
-    func getCast() {
-        let castInfo = [
-            Cast(name: "Chris Hemsworth", character: "Thor Odinson", profilePath: "/jpurJ9jAcLCYjgHHfYF32m3zJYm.jpg"),
-            Cast(name: "Christian Bale", character: "Gorr", profilePath: "/qCpZn2e3dimwbryLnqxZuI88PTi.jpg"),
-            Cast(name: "Tessa Thompson", character: "King Valkyrie", profilePath: "/fycqdiiM6dsNSbnONBVVQ57ILV1.jpg"),
-            Cast(name: "Taika Waititi", character: "Korg / Old Kronan God (voice)", profilePath: "/zCLBXGo5BS2e27srDBa5WpRnKul.jpg"),
-            Cast(name: "Natalie Portman", character: "Jane Foster / The Mighty Thor", profilePath: "/mqKHKayGsEK3TOZDHs3eUAhCP6V.jpg"),
-            Cast(name: "Chris Hemsworth", character: "Thor Odinson", profilePath: "/jpurJ9jAcLCYjgHHfYF32m3zJYm.jpg"),
-            Cast(name: "Christian Bale", character: "Gorr", profilePath: "/qCpZn2e3dimwbryLnqxZuI88PTi.jpg"),
-            Cast(name: "Tessa Thompson", character: "King Valkyrie", profilePath: "/fycqdiiM6dsNSbnONBVVQ57ILV1.jpg"),
-            Cast(name: "Taika Waititi", character: "Korg / Old Kronan God (voice)", profilePath: "/zCLBXGo5BS2e27srDBa5WpRnKul.jpg"),
-            Cast(name: "Natalie Portman", character: "Jane Foster / The Mighty Thor", profilePath: "/mqKHKayGsEK3TOZDHs3eUAhCP6V.jpg")
-        ]
-        cast = castInfo
-        collectionView.reloadData()
+    func getTVSeriesInfoFor(id: Int) {
+        NetworkManager.shared.fetchTVSeriesInfoFor(tvID: id) { tvSeriesInfo in
+            self.show = tvSeriesInfo
+            self.updateUI()
+        }
+        NetworkManager.shared.fetchTVSeriesCastFor(tvID: id) { castInfo in
+            self.cast = castInfo
+            self.collectionView.reloadData()
+        }
     }
 }
 
+//MARK: Raiting manager
+extension InfoScreenViewController {
+    
+    func setRating() {
+        raitingLabel.text = String(format: "%.1f", show.voteAverage)
+        
+        let starFill = UIImage(systemName: "star.fill")
+        let starLeadinghalfFilled = UIImage(systemName: "star.leadinghalf.filled")
+        
+        for starNumber in 1...stars.count {
+            
+            let rating = (show.voteAverage / 10) * 5
+            let starIndex = starNumber - 1
+            
+            if starNumber <= Int(rating) {
+                stars[starIndex].image = starFill
+            } else if starNumber <= Int(rating + 1) {
+                stars[starIndex].image = starLeadinghalfFilled
+            }
+        }
+    }
+}
 
