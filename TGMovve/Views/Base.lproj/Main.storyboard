@@ -63,14 +63,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pRq-2k-feG">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pRq-2k-feG">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="448"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="5Qa-Tm-xHF">
                                 <rect key="frame" x="14" y="394" width="386" height="400"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iron Man" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qNO-XL-DHU" userLabel="Name Label">
-                                        <rect key="frame" x="99.333333333333329" y="0.0" width="187.33333333333337" height="54"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="386" height="54"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.29937287414965985" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="45"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -198,10 +199,14 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Y3e-tt-1Pq" firstAttribute="leading" secondItem="5Qa-Tm-xHF" secondAttribute="leading" id="0VS-T8-RCA"/>
+                                    <constraint firstItem="qNO-XL-DHU" firstAttribute="leading" secondItem="5Qa-Tm-xHF" secondAttribute="leading" id="2p5-2e-CpZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="qNO-XL-DHU" secondAttribute="trailing" id="EFR-hQ-v58"/>
+                                    <constraint firstAttribute="trailing" secondItem="Fli-hM-ABM" secondAttribute="trailing" id="kFD-hp-GKd"/>
                                     <constraint firstAttribute="trailing" secondItem="Y3e-tt-1Pq" secondAttribute="trailing" id="rD2-tr-qJu"/>
+                                    <constraint firstItem="Fli-hM-ABM" firstAttribute="leading" secondItem="5Qa-Tm-xHF" secondAttribute="leading" id="tX4-pE-ExM"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91z-xa-N1s">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91z-xa-N1s">
                                 <rect key="frame" x="107" y="808" width="200" height="40"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <constraints>
@@ -218,6 +223,9 @@
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="detailsButtonPressed:" destination="2nO-bD-5aG" eventType="touchUpInside" id="zyg-U8-Kem"/>
+                                </connections>
                             </button>
                             <navigationBar contentMode="scaleToFill" largeTitles="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4QE-hN-k6H">
                                 <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -225,9 +233,15 @@
                                     <navigationItem id="AdV-yn-d6F">
                                         <barButtonItem key="leftBarButtonItem" title="back" id="b80-XO-BF2">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="backButtonPressed:" destination="2nO-bD-5aG" id="EiN-yM-FO4"/>
+                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Item" image="bookmark" catalog="system" id="ZVW-4V-j46">
                                             <color key="tintColor" systemColor="systemRedColor"/>
+                                            <connections>
+                                                <action selector="bookmarkButtonPressed:" destination="2nO-bD-5aG" id="8Ot-Ml-IqV"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -253,8 +267,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bookmarkButton" destination="ZVW-4V-j46" id="3nJ-n9-fpj"/>
                         <outlet property="collectionView" destination="Fli-hM-ABM" id="eV0-0N-Mbk"/>
                         <outlet property="descriptionLabel" destination="JBX-cW-j57" id="JQZ-OR-UMp"/>
+                        <outlet property="detailsButton" destination="91z-xa-N1s" id="mP4-LO-9lJ"/>
                         <outlet property="infoLabel" destination="DQc-dM-PdS" id="QpM-im-TxQ"/>
                         <outlet property="posterImage" destination="pRq-2k-feG" id="zFb-LB-A2N"/>
                         <outlet property="raitingLabel" destination="Tke-dk-ck3" id="DsJ-3D-tqI"/>

@@ -112,33 +112,6 @@ class HomeCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ShowDetailsFromHome", sender: nil)
-        
-        let valueKey = Array(contentList.keys)[indexPath.section]
-        
-        if let contentArray = contentList[valueKey] {
-            let content = contentArray[indexPath.item]
-            let newContent = Content(context: self.context)
-            newContent.id = Int32(content.id)
-            newContent.title = content.title
-            newContent.posterPath = content.posterPath
-            newContent.releaseData = content.releaseDate
-            
-            if let _ = content as? Movie {
-                newContent.type = "Movie"
-            }
-            
-            if let _ = content as? TVSeries {
-                newContent.type = "TVSeries"
-            }
-            
-            
-            
-            do {
-                try context.save()
-            } catch {
-                print("Error saving context \(error)")
-            }
-        }
     }
     
     
