@@ -59,11 +59,16 @@ class InfoScreenViewController: UIViewController {
             newContent.type = "TVSeries"
         }
         
-        do {
-            try context.save()
-            bookmarkButton.image = UIImage(systemName: "bookmark.fill")
-        } catch {
-            print("Error saving context \(error)")
+        if checkDataInFavorites() {
+            context.delete(newContent)
+            bookmarkButton.image = UIImage(systemName: "bookmark")
+        } else {
+            do {
+                try context.save()
+                bookmarkButton.image = UIImage(systemName: "bookmark.fill")
+            } catch {
+                print("Error saving context \(error)")
+            }
         }
     }
     
@@ -91,6 +96,9 @@ class InfoScreenViewController: UIViewController {
             }
         }
         
+        if checkDataInFavorites() {
+            bookmarkButton.image = UIImage(systemName: "bookmark.fill")
+        }
     }
     
     func prepareWith(_ content: ContentRepresentable) {
@@ -198,3 +206,27 @@ extension InfoScreenViewController {
     }
 }
 
+//MARK: - Querying data
+
+extension InfoScreenViewController {
+    
+    func checkDataInFavorites() -> Bool {
+        
+        let request: NSFetchRequest<Content> = Content.fetchRequest()
+        
+        request.predicate = NSPredicate(format: "title MATCHES[cd] %@", show.title)
+                
+        do {
+            let contents = try context.fetch(request)
+            if contents.count > 0 {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+        
+        return true
+    }
+}
