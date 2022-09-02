@@ -10,6 +10,11 @@ import CoreData
 
 class FavoritesViewController: UITableViewController {
     
+    
+    
+    
+    
+    
     var contentList = [Content]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
