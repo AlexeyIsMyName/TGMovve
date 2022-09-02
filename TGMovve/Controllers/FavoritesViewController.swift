@@ -86,5 +86,14 @@ class FavoritesViewController: UITableViewController {
         }
     }
     
+    // MARK: - Deleting Cells
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            context.delete(contentList[indexPath.row])
+            contentList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+//            loadContent()
+        }
+    }
 }
