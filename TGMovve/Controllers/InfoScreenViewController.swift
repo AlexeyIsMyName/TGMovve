@@ -61,7 +61,10 @@ class InfoScreenViewController: UIViewController {
                 content.type = "TVSeries"
             }
             
+            print("\(content) DELETED")
+            
             context.delete(content)
+            try! context.save()
             bookmarkButton.image = UIImage(systemName: "bookmark")
             
         } else {
