@@ -78,6 +78,7 @@ extension InfoScreenViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         cast?.count ?? 0
     }
+
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -85,10 +86,10 @@ extension InfoScreenViewController: UICollectionViewDataSource {
             return CastCell()
         }
         
-        //        let cast = cast[indexPath.item]
-        //        castCell.actorName.text = cast.name
-        //        castCell.castName.text = cast.character
-        
+        if let cast = cast?[indexPath.item] {
+                castCell.actorName.text = cast.name
+                castCell.castName.text = cast.character
+        }
         
         // дописать реализацию получения картинки
         
