@@ -45,26 +45,46 @@ class InfoScreenViewController: UIViewController {
     
     @IBAction func bookmarkButtonPressed(_ sender: Any) {
         
-        let newContent = Content(context: self.context)
-        newContent.id = Int32(show.id)
-        newContent.title = show.title
-        newContent.posterPath = show.posterPath
-        newContent.releaseData = show.releaseDate
-        
-        if let _ = show as? MovieInfo {
-            newContent.type = "Movie"
-        }
-        
-        if let _ = show as? TVSeriesInfo {
-            newContent.type = "TVSeries"
-        }
-        
         if checkDataInFavorites() {
-            context.delete(newContent)
+
+            let content = Content(context: self.context)
+            content.id = Int32(show.id)
+            content.title = show.title
+            content.posterPath = show.posterPath
+            content.releaseData = show.releaseDate
+            
+            if let _ = show as? MovieInfo {
+                content.type = "Movie"
+            }
+            
+            if let _ = show as? TVSeriesInfo {
+                content.type = "TVSeries"
+            }
+            
+            context.delete(content)
             bookmarkButton.image = UIImage(systemName: "bookmark")
+            
         } else {
+            
+            let newContent = Content(context: self.context)
+            newContent.id = Int32(show.id)
+            newContent.title = show.title
+            newContent.posterPath = show.posterPath
+            newContent.releaseData = show.releaseDate
+            
+            if let _ = show as? MovieInfo {
+                newContent.type = "Movie"
+            }
+            
+            if let _ = show as? TVSeriesInfo {
+                newContent.type = "TVSeries"
+            }
+            
             do {
                 try context.save()
+                
+                print("\(newContent) SAVED")
+                
                 bookmarkButton.image = UIImage(systemName: "bookmark.fill")
             } catch {
                 print("Error saving context \(error)")
@@ -211,9 +231,7 @@ extension InfoScreenViewController {
 extension InfoScreenViewController {
     
     func checkDataInFavorites() -> Bool {
-        
         let request: NSFetchRequest<Content> = Content.fetchRequest()
-        
         request.predicate = NSPredicate(format: "title MATCHES[cd] %@", show.title)
                 
         do {
