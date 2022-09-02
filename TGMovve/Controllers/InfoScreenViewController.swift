@@ -22,7 +22,6 @@ class InfoScreenViewController: UIViewController {
     @IBOutlet weak var detailsButton: UIButton!
     @IBOutlet weak var bookmarkButton: UIBarButtonItem!
     
-    
     var show: ShowRepresentable!
     var cast: [Cast]?
     
@@ -39,7 +38,6 @@ class InfoScreenViewController: UIViewController {
         super.viewDidLoad()
         collectionView.dataSource = self
     }
-    
     
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true)
@@ -72,7 +70,6 @@ class InfoScreenViewController: UIViewController {
     @IBAction func detailsButtonPressed(_ sender: Any) {
         UIApplication.shared.open(URL(string: show.homepage!)!)
     }
-    
     
     func updateUI() {
         videoNameLabel.text = show.title
@@ -107,7 +104,6 @@ class InfoScreenViewController: UIViewController {
         }
     }
     
-    
     func prepareWith(_ content: Content) {
         if content.type == "Movie" {
             //вызов метода №1
@@ -128,8 +124,6 @@ extension InfoScreenViewController: UICollectionViewDataSource {
         print(cast?.count ?? 0)
         return cast?.count ?? 0
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let castCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CastCell", for: indexPath) as? CastCell else {
@@ -168,7 +162,6 @@ extension InfoScreenViewController {
             self.collectionView.reloadData()
         }
     }
-    
     
     func getTVSeriesInfoFor(id: Int) {
         NetworkManager.shared.fetchTVSeriesInfoFor(tvID: id) { tvSeriesInfo in

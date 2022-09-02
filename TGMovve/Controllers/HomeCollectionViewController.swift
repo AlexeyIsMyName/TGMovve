@@ -131,8 +131,6 @@ class HomeCollectionViewController: UICollectionViewController {
         }
     }
     
-    @IBAction func unwindSegue(_ sender: UIStoryboardSegue) {}
-    
     
     // MARK: - Data proveder methods
     private func fillData() {
