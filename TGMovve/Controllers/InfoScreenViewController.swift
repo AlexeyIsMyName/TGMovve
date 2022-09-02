@@ -45,7 +45,7 @@ class InfoScreenViewController: UIViewController {
     
     @IBAction func bookmarkButtonPressed(_ sender: Any) {
         
-        if checkDataInFavorites() {
+        if let isMatches = ContextManager.shared.isDataMatchesWith(title: show.title), isMatches {
 
             let content = Content(context: self.context)
             content.id = Int32(show.id)
@@ -61,10 +61,7 @@ class InfoScreenViewController: UIViewController {
                 content.type = "TVSeries"
             }
             
-            print("\(content) DELETED")
-            
-            context.delete(content)
-            try! context.save()
+            ContextManager.shared.delete(content: content)
             bookmarkButton.image = UIImage(systemName: "bookmark")
             
         } else {
@@ -83,16 +80,10 @@ class InfoScreenViewController: UIViewController {
                 newContent.type = "TVSeries"
             }
             
-            do {
-                try context.save()
-                
-                print("\(newContent) SAVED")
-                
-                bookmarkButton.image = UIImage(systemName: "bookmark.fill")
-            } catch {
-                print("Error saving context \(error)")
-            }
+            ContextManager.shared.saveContext()
+            bookmarkButton.image = UIImage(systemName: "bookmark.fill")
         }
+        
     }
     
     @IBAction func detailsButtonPressed(_ sender: Any) {
@@ -100,13 +91,14 @@ class InfoScreenViewController: UIViewController {
     }
     
     func updateUI() {
+        setRating()
         videoNameLabel.text = show.title
+        descriptionLabel.text = show.overview
         infoLabel.text = "\(show.releaseDate.prefix(4)), \(genre) \(runtime)"
+        
         if show.homepage != nil {
             detailsButton.isEnabled = true
         }
-        setRating()
-        descriptionLabel.text = show.overview
         
         if let posterURL = show.posterPath {
             DispatchQueue.global().async {
@@ -119,7 +111,7 @@ class InfoScreenViewController: UIViewController {
             }
         }
         
-        if checkDataInFavorites() {
+        if let isMatches = ContextManager.shared.isDataMatchesWith(title: show.title), isMatches {
             bookmarkButton.image = UIImage(systemName: "bookmark.fill")
         }
     }
@@ -129,6 +121,7 @@ class InfoScreenViewController: UIViewController {
             //вызов метода №1
             getMovieInfoFor(id: movie.id)
         }
+        
         if let tvSeries = content as? TVSeries {
             //вызов метода №2
             getTVSeriesInfoFor(id: tvSeries.id)
@@ -147,6 +140,7 @@ class InfoScreenViewController: UIViewController {
         }
     }
 }
+
 
 //MARK: UICollectionViewDataSource
 extension InfoScreenViewController: UICollectionViewDataSource {
@@ -176,9 +170,12 @@ extension InfoScreenViewController: UICollectionViewDataSource {
                 }
             }
         }
+        
         return castCell
     }
+    
 }
+
 
 //MARK: Networking
 extension InfoScreenViewController {
@@ -188,6 +185,7 @@ extension InfoScreenViewController {
             self.show = movieInfo
             self.updateUI()
         }
+        
         NetworkManager.shared.fetchMovieCastFor(movieID: id) { castInfo in
             self.cast = castInfo
             self.collectionView.reloadData()
@@ -199,12 +197,14 @@ extension InfoScreenViewController {
             self.show = tvSeriesInfo
             self.updateUI()
         }
+        
         NetworkManager.shared.fetchTVSeriesCastFor(tvID: id) { castInfo in
             self.cast = castInfo
             self.collectionView.reloadData()
         }
     }
 }
+
 
 //MARK: Raiting manager
 extension InfoScreenViewController {
@@ -216,7 +216,6 @@ extension InfoScreenViewController {
         let starLeadinghalfFilled = UIImage(systemName: "star.leadinghalf.filled")
         
         for starNumber in 1...stars.count {
-            
             let rating = (show.voteAverage / 10) * 5
             let starIndex = starNumber - 1
             
@@ -226,28 +225,7 @@ extension InfoScreenViewController {
                 stars[starIndex].image = starLeadinghalfFilled
             }
         }
-    }
-}
-
-//MARK: - Querying data
-
-extension InfoScreenViewController {
-    
-    func checkDataInFavorites() -> Bool {
-        let request: NSFetchRequest<Content> = Content.fetchRequest()
-        request.predicate = NSPredicate(format: "title MATCHES[cd] %@", show.title)
-                
-        do {
-            let contents = try context.fetch(request)
-            if contents.count > 0 {
-                return true
-            } else {
-                return false
-            }
-        } catch {
-            print("Error fetching data from context \(error)")
-        }
         
-        return true
     }
+    
 }

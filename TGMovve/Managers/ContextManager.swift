@@ -32,8 +32,7 @@ class ContextManager {
         return nil
     }
     
-    
-    private func saveContext() {
+    func saveContext() {
         if context.hasChanges {
             do {
                 try context.save()
@@ -43,4 +42,24 @@ class ContextManager {
             }
         }
     }
+    
+    func isDataMatchesWith(title: String) -> Bool? {
+        let request: NSFetchRequest<Content> = Content.fetchRequest()
+        request.predicate = NSPredicate(format: "title MATCHES[cd] %@", title)
+        
+        do {
+            let contents = try context.fetch(request)
+            if contents.count > 0 {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+        
+        return nil
+    }
+    
+    
 }

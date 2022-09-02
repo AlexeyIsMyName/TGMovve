@@ -142,6 +142,4 @@ class HomeCollectionViewController: UICollectionViewController {
             self.collectionView.reloadData()
         }
     }
-    
-    
 }
