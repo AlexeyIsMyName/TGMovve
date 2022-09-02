@@ -50,7 +50,7 @@ class HomeCollectionViewController: UICollectionViewController {
     }()
     
     var contentList: [String: [ContentRepresentable]] = [:]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
@@ -62,13 +62,13 @@ class HomeCollectionViewController: UICollectionViewController {
         collectionView.register(UINib(nibName: "ContentCell", bundle: nil), forCellWithReuseIdentifier: "ContentCell")
         collectionView.register(UINib(nibName: "HeaderSupplementaryView", bundle: nil), forSupplementaryViewOfKind: "header", withReuseIdentifier: "ContentHeader")
     }
-
+    
     
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return contentList.values.count
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ContentHeader", for: indexPath) as? HeaderSupplementaryView else {
             return HeaderSupplementaryView()
@@ -77,7 +77,7 @@ class HomeCollectionViewController: UICollectionViewController {
         headerView.viewModel = HeaderSupplementaryView.ViewModel(name: Array(contentList.keys)[indexPath.section])
         return headerView
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var numberOfItems = 0
         
@@ -87,7 +87,7 @@ class HomeCollectionViewController: UICollectionViewController {
         
         return numberOfItems
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let contentCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentCell", for: indexPath) as? ContentCell else {
             return UICollectionViewCell()
@@ -107,7 +107,7 @@ class HomeCollectionViewController: UICollectionViewController {
         
         return contentCell
     }
-
+    
     
     // MARK: UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -126,7 +126,7 @@ class HomeCollectionViewController: UICollectionViewController {
             if let _ = content as? Movie {
                 newContent.type = "Movie"
             }
-
+            
             if let _ = content as? TVSeries {
                 newContent.type = "TVSeries"
             }
@@ -148,7 +148,14 @@ class HomeCollectionViewController: UICollectionViewController {
             return
         }
         
-        print(indexPath)
+        guard let infoScreenVC = segue.destination as? InfoScreenViewController else { return }
+        
+        let valueKey = Array(contentList.keys)[indexPath.section]
+        
+        if let contentArray = contentList[valueKey] {
+            let content = contentArray[indexPath.item]
+            infoScreenVC.prepareWith(content)
+        }
     }
     
     @IBAction func unwindSegue(_ sender: UIStoryboardSegue) {}
@@ -166,6 +173,6 @@ class HomeCollectionViewController: UICollectionViewController {
             self.collectionView.reloadData()
         }
     }
-
+    
     
 }

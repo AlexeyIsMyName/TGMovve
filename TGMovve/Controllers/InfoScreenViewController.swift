@@ -23,29 +23,60 @@ class InfoScreenViewController: UIViewController {
     
     
     var show: ShowRepresentable!
-    var cast: [Cast]!
+    var cast: [Cast]?
+    
+    var runtime: String {
+        guard let runtime = show.runtime else {return ""}
+        return "\(runtime / 60) h \(runtime - (runtime / 60) * 60) m"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
-        getShow()
-        getCast()
     }
+    
+    
     
     func updateUI() {
         videoNameLabel.text = show.title
-        //        infoLabel.text = "\(show.releaseDate.prefix(4)), Жанр, \((show.runtime ?? 0) / 60) h \(show.runtime - ((show.runtime ?? 0) / 60) * 60) m"
+        infoLabel.text = "\(show.releaseDate.prefix(4)), Жанр, \(runtime)"
         
         setRating()
         descriptionLabel.text = show.overview
     }
+    
+    func prepareWith(_ content: ContentRepresentable) {
+        if let movie = content as? Movie {
+            //вызов метода №1
+            getMovieInfoFor(id: movie.id)
+        }
+        if let tvSeries = content as? TVSeries {
+            //вызов метода №2
+            getTVSeriesInfoFor(id: tvSeries.id)
+        }
+    }
+    
+    
+    func prepareWith(_ content: Content) {
+        if content.type == "Movie" {
+            //вызов метода №1
+            getMovieInfoFor(id: Int(content.id))
+        }
+        
+        if content.type == "TVSeries" {
+            //вызов метода №2
+            getTVSeriesInfoFor(id: Int(content.id))
+        }
+    }
+    
+    
 }
 
 //MARK: UICollectionViewDataSource
 extension InfoScreenViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        cast.count
+        cast?.count ?? 0
     }
     
     
@@ -54,9 +85,9 @@ extension InfoScreenViewController: UICollectionViewDataSource {
             return CastCell()
         }
         
-        let cast = cast[indexPath.item]
-        castCell.actorName.text = cast.name
-        castCell.castName.text = cast.character
+        //        let cast = cast[indexPath.item]
+        //        castCell.actorName.text = cast.name
+        //        castCell.castName.text = cast.character
         
         
         // дописать реализацию получения картинки
@@ -68,37 +99,28 @@ extension InfoScreenViewController: UICollectionViewDataSource {
 
 //MARK: Networking
 extension InfoScreenViewController {
-    func getShow() {
-        let movieInfo = MovieInfo(posterPath: "/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",
-                                  id: 616037,
-                                  title: "Thor: Love and Thunder",
-                                  tagline: "The one is not the only.",
-                                  releaseDate: "2022-07-06",
-                                  voteAverage: 8.767,
-                                  genres: [Genre(id: 28, name: "Action"), Genre(id: 12, name: "Adventure"), Genre(id: 14, name: "Fantasy")],
-                                  overview: "After his retirement is interrupted by Gorr the God Butcher, a galactic killer who seeks the extinction of the gods, Thor Odinson enlists the help of King Valkyrie, Korg, and ex-girlfriend Jane Foster, who now inexplicably wields Mjolnir as the Relatively Mighty Girl Thor. Together they embark upon a harrowing cosmic adventure to uncover the mystery of the God Butcher’s vengeance and stop him before it’s too late.",
-                                  homepage: "https://www.marvel.com/movies/thor-love-and-thunder",
-                                  runtime: 223)
-        
-        show = movieInfo
-        updateUI()
+    
+    func getMovieInfoFor(id: Int) {
+        NetworkManager.shared.fetchMovieInfoFor(movieID: id) { movieInfo in
+            self.show = movieInfo
+            self.updateUI()
+        }
+        NetworkManager.shared.fetchMovieCastFor(movieID: id) { castInfo in
+            self.cast = castInfo
+            self.collectionView.reloadData()
+        }
     }
     
-    func getCast() {
-        let castInfo = [
-            Cast(name: "Chris Hemsworth", character: "Thor Odinson", profilePath: "/jpurJ9jAcLCYjgHHfYF32m3zJYm.jpg"),
-            Cast(name: "Christian Bale", character: "Gorr", profilePath: "/qCpZn2e3dimwbryLnqxZuI88PTi.jpg"),
-            Cast(name: "Tessa Thompson", character: "King Valkyrie", profilePath: "/fycqdiiM6dsNSbnONBVVQ57ILV1.jpg"),
-            Cast(name: "Taika Waititi", character: "Korg / Old Kronan God (voice)", profilePath: "/zCLBXGo5BS2e27srDBa5WpRnKul.jpg"),
-            Cast(name: "Natalie Portman", character: "Jane Foster / The Mighty Thor", profilePath: "/mqKHKayGsEK3TOZDHs3eUAhCP6V.jpg"),
-            Cast(name: "Chris Hemsworth", character: "Thor Odinson", profilePath: "/jpurJ9jAcLCYjgHHfYF32m3zJYm.jpg"),
-            Cast(name: "Christian Bale", character: "Gorr", profilePath: "/qCpZn2e3dimwbryLnqxZuI88PTi.jpg"),
-            Cast(name: "Tessa Thompson", character: "King Valkyrie", profilePath: "/fycqdiiM6dsNSbnONBVVQ57ILV1.jpg"),
-            Cast(name: "Taika Waititi", character: "Korg / Old Kronan God (voice)", profilePath: "/zCLBXGo5BS2e27srDBa5WpRnKul.jpg"),
-            Cast(name: "Natalie Portman", character: "Jane Foster / The Mighty Thor", profilePath: "/mqKHKayGsEK3TOZDHs3eUAhCP6V.jpg")
-        ]
-        cast = castInfo
-        collectionView.reloadData()
+    
+    func getTVSeriesInfoFor(id: Int) {
+        NetworkManager.shared.fetchTVSeriesInfoFor(tvID: id) { tvSeriesInfo in
+            self.show = tvSeriesInfo
+            self.updateUI()
+        }
+        NetworkManager.shared.fetchTVSeriesCastFor(tvID: id) { castInfo in
+            self.cast = castInfo
+            self.collectionView.reloadData()
+        }
     }
 }
 
@@ -124,3 +146,4 @@ extension InfoScreenViewController {
         }
     }
 }
+
