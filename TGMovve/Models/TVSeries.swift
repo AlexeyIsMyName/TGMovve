@@ -6,6 +6,7 @@
 //
 
 struct TVSeries: Decodable, ContentRepresentable {
+    
     var title: String {
         return name
     }

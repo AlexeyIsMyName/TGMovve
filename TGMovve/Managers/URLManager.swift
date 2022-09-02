@@ -8,6 +8,7 @@
 import Foundation
 
 class URLManager {
+    
     static let get = URLManager()
     
     private enum URLBase: String {

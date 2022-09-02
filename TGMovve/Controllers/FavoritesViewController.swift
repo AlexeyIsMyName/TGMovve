@@ -17,7 +17,6 @@ class FavoritesViewController: UITableViewController {
         super.viewDidLoad()
         tableView.rowHeight = 100
         tableView.register(UINib(nibName: "FavoriteCell", bundle: nil), forCellReuseIdentifier: "TableCell")
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,8 +25,8 @@ class FavoritesViewController: UITableViewController {
         tableView.reloadData()
     }
 
+    
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(contentList.count)
         return contentList.count
@@ -64,16 +63,20 @@ class FavoritesViewController: UITableViewController {
         return cell
     }
     
+    
+    // MARK: UITableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ShowDetails", sender: nil)
     }
 
-    //MARK: - Navigation
     
+    //MARK: - Navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          
      }
 
+    
+    // MARK: - Core Data method
     func loadContent() {
         let request: NSFetchRequest<Content> = Content.fetchRequest()
         do {
@@ -82,5 +85,6 @@ class FavoritesViewController: UITableViewController {
             print("Error fetching data from context \(error)")
         }
     }
+    
     
 }

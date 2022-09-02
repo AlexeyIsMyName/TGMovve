@@ -82,6 +82,7 @@
 		E7363AA328BEDF81005A97A3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				3724054928C008A100925A40 /* CastCell.swift */,
 				E7363AA428BEDFB9005A97A3 /* ContentCell.swift */,
 				E7363AA528BEDFB9005A97A3 /* ContentCell.xib */,
 				E7363AA828BEE690005A97A3 /* HeaderSupplementaryView.swift */,
@@ -95,7 +96,6 @@
 		E77FA07228BC0D37008835C9 = {
 			isa = PBXGroup;
 			children = (
-				3724054928C008A100925A40 /* CastCell.swift */,
 				E77FA07D28BC0D37008835C9 /* TGMovve */,
 				E77FA07C28BC0D37008835C9 /* Products */,
 			);

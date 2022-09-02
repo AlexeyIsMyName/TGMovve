@@ -27,12 +27,9 @@ class InfoScreenViewController: UIViewController {
         getCast()
     }
     
-//   func prepareWith(content: ContentRepresentable)
-    
-    
     func updateUI() {
         videoNameLabel.text = show.title
-        infoLabel.text = "\(show.releaseDate.prefix(4)), Жанр, \((show.runtime ?? nil) / 60) h \(show.runtime - ((show.runtime ?? nil) / 60) * 60) m"
+//        infoLabel.text = "\(show.releaseDate.prefix(4)), Жанр, \((show.runtime ?? 0) / 60) h \(show.runtime - ((show.runtime ?? 0) / 60) * 60) m"
         
         
         //MARK: Raiting round-up
