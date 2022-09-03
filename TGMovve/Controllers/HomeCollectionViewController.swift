@@ -9,7 +9,9 @@ import UIKit
 
 class HomeCollectionViewController: UICollectionViewController {
     
-    let compositionalLayout: UICollectionViewCompositionalLayout = {
+    
+    // MARK: - Private Properties
+    private let compositionalLayout: UICollectionViewCompositionalLayout = {
         let inset: CGFloat = 8
         
         // Item
@@ -47,8 +49,10 @@ class HomeCollectionViewController: UICollectionViewController {
         return layout
     }()
     
-    var contentList: [String: [ContentRepresentable]] = [:]
+    private var contentList: [String: [ContentRepresentable]] = [:]
     
+    
+    // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
@@ -56,13 +60,44 @@ class HomeCollectionViewController: UICollectionViewController {
         fillData()
     }
     
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first else {
+            return
+        }
+        
+        guard let infoScreenVC = segue.destination as? InfoScreenViewController else { return }
+        
+        let valueKey = Array(contentList.keys)[indexPath.section]
+        
+        if let contentArray = contentList[valueKey] {
+            let content = contentArray[indexPath.item]
+            infoScreenVC.prepareWith(content)
+        }
+    }
+    
+    
+    // MARK: - Private Methods
     private func registerCells() {
         collectionView.register(UINib(nibName: "ContentCell", bundle: nil), forCellWithReuseIdentifier: "ContentCell")
         collectionView.register(UINib(nibName: "HeaderSupplementaryView", bundle: nil), forSupplementaryViewOfKind: "header", withReuseIdentifier: "ContentHeader")
     }
     
+    private func fillData() {
+        NetworkManager.shared.fetchMovies { movies in
+            self.contentList["Popular Movies"] = movies
+            self.collectionView.reloadData()
+        }
+        
+        NetworkManager.shared.fetchTVSeries { tvShows in
+            self.contentList["TV Shows"] = tvShows
+            self.collectionView.reloadData()
+        }
+    }
     
-    // MARK: UICollectionViewDataSource
+    
+    // MARK: Collection view data source
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return contentList.values.count
     }
@@ -107,39 +142,10 @@ class HomeCollectionViewController: UICollectionViewController {
     }
     
     
-    // MARK: UICollectionViewDelegate
+    // MARK: Collection view delegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ShowDetailsFromHome", sender: nil)
     }
     
     
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let indexPath = collectionView.indexPathsForSelectedItems?.first else {
-            return
-        }
-        
-        guard let infoScreenVC = segue.destination as? InfoScreenViewController else { return }
-        
-        let valueKey = Array(contentList.keys)[indexPath.section]
-        
-        if let contentArray = contentList[valueKey] {
-            let content = contentArray[indexPath.item]
-            infoScreenVC.prepareWith(content)
-        }
-    }
-    
-    
-    // MARK: - Data proveder methods
-    private func fillData() {
-        NetworkManager.shared.fetchMovies { movies in
-            self.contentList["Popular Movies"] = movies
-            self.collectionView.reloadData()
-        }
-        
-        NetworkManager.shared.fetchTVSeries { tvShows in
-            self.contentList["TV Shows"] = tvShows
-            self.collectionView.reloadData()
-        }
-    }
 }
