@@ -82,10 +82,18 @@ final class InfoScreenViewController: UIViewController, SFSafariViewControllerDe
     
     @IBAction func detailsButtonPressed(_ sender: Any) {
         guard let stringURL = show.homepage else { return }
+        
         if let url = URL(string: stringURL) {
-            let vc = SFSafariViewController(url: url)
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = false
+            config.barCollapsingEnabled = false
+            
+            let vc = SFSafariViewController(url: url, configuration: config)
             
             vc.delegate = self
+            vc.preferredBarTintColor = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 1.0)
+            vc.preferredControlTintColor = .white
+            vc.dismissButtonStyle = .close
 
             present(vc, animated: true)
         }
