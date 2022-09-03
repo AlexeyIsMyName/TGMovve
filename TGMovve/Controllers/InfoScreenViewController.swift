@@ -132,7 +132,7 @@ final class InfoScreenViewController: UIViewController, SFSafariViewControllerDe
         descriptionLabel.text = show.overview
         infoLabel.text = "\(show.releaseDate.prefix(4)), \(genre) \(runtime)"
         
-        if show.homepage != nil {
+        if let stringURL = show.homepage, let _ = URL(string: stringURL) {
             detailsButton.isEnabled = true
         }
         
