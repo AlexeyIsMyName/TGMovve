@@ -84,13 +84,8 @@ class InfoScreenViewController: UIViewController {
         }
         
         if let posterURL = show.posterPath {
-            DispatchQueue.global().async {
-                URLManager.get.largeImageFor(posterURL) { imageURL in
-                    guard let imageData = try? Data(contentsOf: imageURL) else { return }
-                    DispatchQueue.main.async {
-                        self.posterImage.image = UIImage(data: imageData)
-                    }
-                }
+            ImageManager.shared.fetchImegeOf(size: .large, from: posterURL) { image in
+                self.posterImage.image = image
             }
         }
         
@@ -156,13 +151,8 @@ extension InfoScreenViewController: UICollectionViewDataSource {
             castCell.castName.text = cast.character
             
             if let posterURL = cast.profilePath {
-                DispatchQueue.global().async {
-                    URLManager.get.smallImageFor(posterURL) { imageURL in
-                        guard let imageData = try? Data(contentsOf: imageURL) else { return }
-                        DispatchQueue.main.async {
-                            castCell.actorImage.image = UIImage(data: imageData)
-                        }
-                    }
+                ImageManager.shared.fetchImegeOf(size: .small, from: posterURL) { image in
+                    castCell.actorImage.image = image
                 }
             }
         }
