@@ -47,13 +47,8 @@ class FavoritesViewController: UITableViewController {
         }
         
         if let posterURL = content.posterPath {
-            DispatchQueue.global().async {
-                URLManager.get.smallImageFor(posterURL) { imageURL in
-                    guard let imageData = try? Data(contentsOf: imageURL) else { return }
-                    DispatchQueue.main.async {
-                        cell.posterImage.image = UIImage(data: imageData)
-                    }
-                }
+            ImageManager.shared.fetchImegeOf(size: .small, from: posterURL) { image in
+                cell.posterImage.image = image
             }
         }
         
