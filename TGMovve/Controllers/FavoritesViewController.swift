@@ -9,8 +9,12 @@ import UIKit
 
 class FavoritesViewController: UITableViewController {
     
-    var contentList = [Content]()
     
+    // MARK: - Private Properties
+    private var contentList = [Content]()
+    
+    
+    // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 100
@@ -21,6 +25,27 @@ class FavoritesViewController: UITableViewController {
         super.viewWillAppear(animated)
         loadContent()
         tableView.reloadData()
+    }
+    
+    
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let indexPath = tableView.indexPathForSelectedRow else {
+            return
+        }
+        
+        guard let infoScreenVC = segue.destination as? InfoScreenViewController else { return }
+        let content = contentList[indexPath.item]
+        infoScreenVC.prepareWith(content)
+    }
+    
+    
+    // MARK: - Private Methods
+    private func loadContent() {
+        if let contentList = ContextManager.shared.fetchContents() {
+            self.contentList = contentList
+        }
     }
     
     
@@ -55,35 +80,6 @@ class FavoritesViewController: UITableViewController {
         return cell
     }
     
-    
-    // MARK: UITableViewDelegate
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "ShowDetails", sender: nil)
-    }
-    
-    
-    //MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let indexPath = tableView.indexPathForSelectedRow else {
-            return
-        }
-        
-        guard let infoScreenVC = segue.destination as? InfoScreenViewController else { return }
-        let content = contentList[indexPath.item]
-        infoScreenVC.prepareWith(content)
-    }
-    
-    
-    // MARK: - Core Data method
-    func loadContent() {
-        if let contentList = ContextManager.shared.fetchContents() {
-            self.contentList = contentList
-        }
-    }
-    
-    
-    // MARK: - Deleting Cells
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             ContextManager.shared.delete(content: contentList[indexPath.row])
@@ -91,4 +87,12 @@ class FavoritesViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
+    
+    
+    // MARK: Table view delegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ShowDetails", sender: nil)
+    }
+    
+    
 }
