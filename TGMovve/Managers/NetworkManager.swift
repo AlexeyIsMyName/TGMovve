@@ -8,8 +8,9 @@
 import Foundation
 
 class NetworkManager {
-    
     static let shared = NetworkManager()
+    private init() {}
+    
     
     func fetchMovies(with completion: @escaping ([Movie]) -> Void) {
         
@@ -161,5 +162,5 @@ class NetworkManager {
         }
     }
     
-    private init() {}
+    
 }

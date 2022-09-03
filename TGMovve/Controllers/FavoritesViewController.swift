@@ -6,12 +6,10 @@
 //
 
 import UIKit
-import CoreData
 
 class FavoritesViewController: UITableViewController {
     
     var contentList = [Content]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +26,6 @@ class FavoritesViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(contentList.count)
         return contentList.count
     }
     
@@ -85,22 +82,18 @@ class FavoritesViewController: UITableViewController {
     
     // MARK: - Core Data method
     func loadContent() {
-        let request: NSFetchRequest<Content> = Content.fetchRequest()
-        do {
-            contentList = try context.fetch(request)
-        } catch {
-            print("Error fetching data from context \(error)")
+        if let contentList = ContextManager.shared.fetchContents() {
+            self.contentList = contentList
         }
     }
     
-    // MARK: - Deleting Cells
     
+    // MARK: - Deleting Cells
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            context.delete(contentList[indexPath.row])
+            ContextManager.shared.delete(content: contentList[indexPath.row])
             contentList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-//            loadContent()
         }
     }
 }

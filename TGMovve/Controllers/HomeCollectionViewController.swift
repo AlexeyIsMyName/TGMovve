@@ -9,8 +9,6 @@ import UIKit
 
 class HomeCollectionViewController: UICollectionViewController {
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     let compositionalLayout: UICollectionViewCompositionalLayout = {
         let inset: CGFloat = 8
         
@@ -144,6 +142,4 @@ class HomeCollectionViewController: UICollectionViewController {
             self.collectionView.reloadData()
         }
     }
-    
-    
 }

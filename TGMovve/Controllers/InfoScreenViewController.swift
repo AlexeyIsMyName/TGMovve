@@ -10,8 +10,6 @@ import CoreData
 
 class InfoScreenViewController: UIViewController {
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var videoNameLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
@@ -45,26 +43,28 @@ class InfoScreenViewController: UIViewController {
     
     @IBAction func bookmarkButtonPressed(_ sender: Any) {
         
-        let newContent = Content(context: self.context)
-        newContent.id = Int32(show.id)
-        newContent.title = show.title
-        newContent.posterPath = show.posterPath
-        newContent.releaseData = show.releaseDate
-        
-        if let _ = show as? MovieInfo {
-            newContent.type = "Movie"
-        }
-        
-        if let _ = show as? TVSeriesInfo {
-            newContent.type = "TVSeries"
-        }
-        
-        do {
-            try context.save()
+        if let isMatches = ContextManager.shared.deleteIfMatches(title: show.title), isMatches {
+            bookmarkButton.image = UIImage(systemName: "bookmark")
+        } else {
+            
+            let newContent = Content(context: ContextManager.shared.context)
+            newContent.id = Int32(show.id)
+            newContent.title = show.title
+            newContent.posterPath = show.posterPath
+            newContent.releaseData = show.releaseDate
+            
+            if let _ = show as? MovieInfo {
+                newContent.type = "Movie"
+            }
+            
+            if let _ = show as? TVSeriesInfo {
+                newContent.type = "TVSeries"
+            }
+            
+            ContextManager.shared.saveContext()
             bookmarkButton.image = UIImage(systemName: "bookmark.fill")
-        } catch {
-            print("Error saving context \(error)")
         }
+        
     }
     
     @IBAction func detailsButtonPressed(_ sender: Any) {
@@ -72,13 +72,14 @@ class InfoScreenViewController: UIViewController {
     }
     
     func updateUI() {
+        setRating()
         videoNameLabel.text = show.title
+        descriptionLabel.text = show.overview
         infoLabel.text = "\(show.releaseDate.prefix(4)), \(genre) \(runtime)"
+        
         if show.homepage != nil {
             detailsButton.isEnabled = true
         }
-        setRating()
-        descriptionLabel.text = show.overview
         
         if let posterURL = show.posterPath {
             DispatchQueue.global().async {
@@ -91,6 +92,9 @@ class InfoScreenViewController: UIViewController {
             }
         }
         
+        if let isMatches = ContextManager.shared.isDataMatchesWith(title: show.title), isMatches {
+            bookmarkButton.image = UIImage(systemName: "bookmark.fill")
+        }
     }
     
     func prepareWith(_ content: ContentRepresentable) {
@@ -98,6 +102,7 @@ class InfoScreenViewController: UIViewController {
             //вызов метода №1
             getMovieInfoFor(id: movie.id)
         }
+        
         if let tvSeries = content as? TVSeries {
             //вызов метода №2
             getTVSeriesInfoFor(id: tvSeries.id)
@@ -117,11 +122,11 @@ class InfoScreenViewController: UIViewController {
     }
 }
 
+
 //MARK: UICollectionViewDataSource
 extension InfoScreenViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(cast?.count ?? 0)
         return cast?.count ?? 0
     }
     
@@ -145,18 +150,21 @@ extension InfoScreenViewController: UICollectionViewDataSource {
                 }
             }
         }
+        
         return castCell
     }
+    
 }
+
 
 //MARK: Networking
 extension InfoScreenViewController {
-    
     func getMovieInfoFor(id: Int) {
         NetworkManager.shared.fetchMovieInfoFor(movieID: id) { movieInfo in
             self.show = movieInfo
             self.updateUI()
         }
+        
         NetworkManager.shared.fetchMovieCastFor(movieID: id) { castInfo in
             self.cast = castInfo
             self.collectionView.reloadData()
@@ -168,6 +176,7 @@ extension InfoScreenViewController {
             self.show = tvSeriesInfo
             self.updateUI()
         }
+        
         NetworkManager.shared.fetchTVSeriesCastFor(tvID: id) { castInfo in
             self.cast = castInfo
             self.collectionView.reloadData()
@@ -175,9 +184,9 @@ extension InfoScreenViewController {
     }
 }
 
+
 //MARK: Raiting manager
 extension InfoScreenViewController {
-    
     func setRating() {
         raitingLabel.text = String(format: "%.1f", show.voteAverage)
         
@@ -185,7 +194,6 @@ extension InfoScreenViewController {
         let starLeadinghalfFilled = UIImage(systemName: "star.leadinghalf.filled")
         
         for starNumber in 1...stars.count {
-            
             let rating = (show.voteAverage / 10) * 5
             let starIndex = starNumber - 1
             
@@ -197,4 +205,3 @@ extension InfoScreenViewController {
         }
     }
 }
-
