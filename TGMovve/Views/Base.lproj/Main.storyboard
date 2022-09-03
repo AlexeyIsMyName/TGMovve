@@ -307,7 +307,7 @@
                         <outlet property="infoLabel" destination="DQc-dM-PdS" id="QpM-im-TxQ"/>
                         <outlet property="posterImage" destination="pRq-2k-feG" id="zFb-LB-A2N"/>
                         <outlet property="raitingLabel" destination="Tke-dk-ck3" id="DsJ-3D-tqI"/>
-                        <outlet property="videoNameLabel" destination="qNO-XL-DHU" id="oDI-Yb-qIF"/>
+                        <outlet property="titleLabel" destination="qNO-XL-DHU" id="oDI-Yb-qIF"/>
                         <outletCollection property="stars" destination="2Io-2A-hYV" collectionClass="NSMutableArray" id="rEI-O7-eyv"/>
                         <outletCollection property="stars" destination="yuD-kB-LWj" collectionClass="NSMutableArray" id="yb2-iX-wdC"/>
                         <outletCollection property="stars" destination="Nde-K1-URA" collectionClass="NSMutableArray" id="USg-qK-UN9"/>

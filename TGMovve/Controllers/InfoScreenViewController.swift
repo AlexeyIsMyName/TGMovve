@@ -10,42 +10,52 @@ import CoreData
 
 class InfoScreenViewController: UIViewController {
     
-    @IBOutlet weak var posterImage: UIImageView!
-    @IBOutlet weak var videoNameLabel: UILabel!
-    @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var raitingLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet var stars: [UIImageView]!
-    @IBOutlet weak var detailsButton: UIButton!
+    
+    // MARK: - IB Outlets
     @IBOutlet weak var bookmarkButton: UIBarButtonItem!
-    @IBOutlet var bgView: UIView!
+    
+    @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    var show: ShowRepresentable!
-    var cast: [Cast]?
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var raitingLabel: UILabel!
+    @IBOutlet var stars: [UIImageView]!
+    @IBOutlet var bgView: UIView!
     
-    var runtime: String {
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var detailsButton: UIButton!
+    
+    
+    // MARK: - Private Properties
+    private var show: ShowRepresentable!
+    private var cast: [Cast]?
+    
+    private var runtime: String {
         guard let runtime = show.runtime else {return ""}
         return ", \(runtime / 60) h \(runtime - (runtime / 60) * 60) m"
     }
     
-    var genre: String {
+    private var genre: String {
         show.genres.map {$0.name}.joined(separator: ", ")
     }
     
+    
+    // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
         setGradientView()
     }
     
+    
+    // MARK: - IB ACtions
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true)
     }
     
     @IBAction func bookmarkButtonPressed(_ sender: Any) {
-        
         if let isMatches = ContextManager.shared.deleteIfMatches(title: show.title), isMatches {
             bookmarkButton.image = UIImage(systemName: "bookmark")
         } else {
@@ -67,49 +77,14 @@ class InfoScreenViewController: UIViewController {
             ContextManager.shared.saveContext()
             bookmarkButton.image = UIImage(systemName: "bookmark.fill")
         }
-        
     }
     
     @IBAction func detailsButtonPressed(_ sender: Any) {
         UIApplication.shared.open(URL(string: show.homepage!)!)
     }
     
-    func updateUI() {
-        setRating()
-        videoNameLabel.text = show.title
-        descriptionLabel.text = show.overview
-        infoLabel.text = "\(show.releaseDate.prefix(4)), \(genre) \(runtime)"
-        
-        if show.homepage != nil {
-            detailsButton.isEnabled = true
-        }
-        
-        if let posterURL = show.posterPath {
-            ImageManager.shared.fetchImegeOf(size: .large, from: posterURL) { image in
-                self.posterImage.image = image
-                self.activityIndicator.stopAnimating()
-            }
-        }
-        
-        if let isMatches = ContextManager.shared.isDataMatchesWith(title: show.title), isMatches {
-            bookmarkButton.image = UIImage(systemName: "bookmark.fill")
-        }
-    }
     
-    func setGradientView() {
-        let colorTop =  UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.0).cgColor
-        let colorTopC = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.5).cgColor
-        let colorBottomC = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.75).cgColor
-        let colorBottom = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 1.0).cgColor
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop, colorTopC, colorBottomC, colorBottom]
-        gradientLayer.locations = [0.0, 0.2, 0.5, 0.9]
-        gradientLayer.frame = bgView.bounds
-        
-        bgView.layer.insertSublayer(gradientLayer, at:0)
-    }
-    
+    // MARK: - Public Methods
     func prepareWith(_ content: ContentRepresentable) {
         if let movie = content as? Movie {
             //вызов метода №1
@@ -133,10 +108,50 @@ class InfoScreenViewController: UIViewController {
             getTVSeriesInfoFor(id: Int(content.id))
         }
     }
+    
+    
+    // MARK: - Private Methods
+    private func updateUI() {
+        setRating()
+        titleLabel.text = show.title
+        descriptionLabel.text = show.overview
+        infoLabel.text = "\(show.releaseDate.prefix(4)), \(genre) \(runtime)"
+        
+        if show.homepage != nil {
+            detailsButton.isEnabled = true
+        }
+        
+        if let posterURL = show.posterPath {
+            ImageManager.shared.fetchImegeOf(size: .large, from: posterURL) { image in
+                self.posterImage.image = image
+                self.activityIndicator.stopAnimating()
+            }
+        }
+        
+        if let isMatches = ContextManager.shared.isDataMatchesWith(title: show.title), isMatches {
+            bookmarkButton.image = UIImage(systemName: "bookmark.fill")
+        }
+    }
+    
+    private func setGradientView() {
+        let colorTop =  UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.0).cgColor
+        let colorTopC = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.5).cgColor
+        let colorBottomC = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.75).cgColor
+        let colorBottom = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 1.0).cgColor
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorTop, colorTopC, colorBottomC, colorBottom]
+        gradientLayer.locations = [0.0, 0.2, 0.5, 0.9]
+        gradientLayer.frame = bgView.bounds
+        
+        bgView.layer.insertSublayer(gradientLayer, at:0)
+    }
+    
+    
 }
 
 
-//MARK: UICollectionViewDataSource
+//MARK: Collection view data source
 extension InfoScreenViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
