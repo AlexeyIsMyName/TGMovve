@@ -9,7 +9,7 @@ import UIKit
 
 class FavoritesViewController: UITableViewController {
     
-    var contentList = MookmarkManager.contentList
+    var contentList = [Content]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -12,7 +12,8 @@ class ContextManager {
     static let shared = ContextManager()
     private init() {}
     
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     func delete(content: Content) {
         context.delete(content)
@@ -79,5 +80,6 @@ class ContextManager {
         
         return nil
     }
+    
     
 }

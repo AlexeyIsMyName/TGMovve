@@ -10,9 +10,6 @@ import CoreData
 
 class InfoScreenViewController: UIViewController {
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var contentList = MookmarkManager.contentList
-    
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var videoNameLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
@@ -50,7 +47,7 @@ class InfoScreenViewController: UIViewController {
             bookmarkButton.image = UIImage(systemName: "bookmark")
         } else {
             
-            let newContent = Content(context: self.context)
+            let newContent = Content(context: ContextManager.shared.context)
             newContent.id = Int32(show.id)
             newContent.title = show.title
             newContent.posterPath = show.posterPath
@@ -162,7 +159,6 @@ extension InfoScreenViewController: UICollectionViewDataSource {
 
 //MARK: Networking
 extension InfoScreenViewController {
-    
     func getMovieInfoFor(id: Int) {
         NetworkManager.shared.fetchMovieInfoFor(movieID: id) { movieInfo in
             self.show = movieInfo
@@ -191,7 +187,6 @@ extension InfoScreenViewController {
 
 //MARK: Raiting manager
 extension InfoScreenViewController {
-    
     func setRating() {
         raitingLabel.text = String(format: "%.1f", show.voteAverage)
         
@@ -208,7 +203,5 @@ extension InfoScreenViewController {
                 stars[starIndex].image = starLeadinghalfFilled
             }
         }
-        
     }
-    
 }

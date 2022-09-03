@@ -8,8 +8,9 @@
 import Foundation
 
 class URLManager {
-    
     static let get = URLManager()
+    private init(){}
+    
     
     private enum URLBase: String {
         case tvSeriesDiscover = "https://api.themoviedb.org/3/discover/tv"
@@ -84,5 +85,5 @@ class URLManager {
         }
     }
         
-    private init(){}
+    
 }
