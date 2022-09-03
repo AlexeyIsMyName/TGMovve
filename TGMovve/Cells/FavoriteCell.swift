@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavoriteCell: UITableViewCell {
+final class FavoriteCell: UITableViewCell {
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!

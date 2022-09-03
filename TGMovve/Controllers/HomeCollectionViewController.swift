@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeCollectionViewController: UICollectionViewController {
+final class HomeCollectionViewController: UICollectionViewController {
     
     
     // MARK: - Private Properties

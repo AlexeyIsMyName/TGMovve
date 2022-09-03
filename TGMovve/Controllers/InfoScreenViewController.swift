@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class InfoScreenViewController: UIViewController {
+final class InfoScreenViewController: UIViewController {
     
     
     // MARK: - IB Outlets

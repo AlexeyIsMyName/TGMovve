@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ContentCell: UICollectionViewCell {
+final class ContentCell: UICollectionViewCell {
     
     struct ViewModel {
         let posterURL: String?

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class ImageManager {
+final class ImageManager {
     static var shared = ImageManager()
     private init() {}
     

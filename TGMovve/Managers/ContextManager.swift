@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class ContextManager {
+final class ContextManager {
     static let shared = ContextManager()
     private init() {}
     

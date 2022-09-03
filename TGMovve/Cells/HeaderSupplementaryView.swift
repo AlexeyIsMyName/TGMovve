@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderSupplementaryView: UICollectionReusableView {
+final class HeaderSupplementaryView: UICollectionReusableView {
     
     struct ViewModel {
         let name: String

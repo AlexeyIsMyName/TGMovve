@@ -7,7 +7,7 @@
 
 import Foundation
 
-class URLManager {
+final class URLManager {
     static let get = URLManager()
     private init(){}
     
