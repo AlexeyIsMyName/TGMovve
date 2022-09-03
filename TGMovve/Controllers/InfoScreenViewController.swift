@@ -20,6 +20,7 @@ class InfoScreenViewController: UIViewController {
     @IBOutlet weak var detailsButton: UIButton!
     @IBOutlet weak var bookmarkButton: UIBarButtonItem!
     @IBOutlet var bgView: UIView!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     var show: ShowRepresentable!
     var cast: [Cast]?
@@ -86,6 +87,7 @@ class InfoScreenViewController: UIViewController {
         if let posterURL = show.posterPath {
             ImageManager.shared.fetchImegeOf(size: .large, from: posterURL) { image in
                 self.posterImage.image = image
+                self.activityIndicator.stopAnimating()
             }
         }
         
