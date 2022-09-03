@@ -65,61 +65,79 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pRq-2k-feG">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="448"/>
+                                <color key="backgroundColor" red="0.082352941176470587" green="0.094117647058823528" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5Qa-Tm-xHF">
-                                <rect key="frame" x="0.0" y="394" width="414" height="199"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5Qa-Tm-xHF">
+                                <rect key="frame" x="0.0" y="313.66666666666663" width="414" height="276.66666666666663"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iron Man" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qNO-XL-DHU" userLabel="Name Label">
-                                        <rect key="frame" x="14" y="0.0" width="386" height="54"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.29937287414965985" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="45"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2020, Action, 2:35" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DQc-dM-PdS" userLabel="Info Label">
-                                        <rect key="frame" x="14" y="62" width="386" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="IuE-mg-Xld">
-                                        <rect key="frame" x="132.33333333333337" y="94" width="149.66666666666663" height="20.333333333333329"/>
+                                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbf-hM-CRL">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="134.33333333333334"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tke-dk-ck3" userLabel="Raiting Label">
-                                                <rect key="frame" x="0.0" y="0.0" width="25.666666666666668" height="20.333333333333332"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                <color key="textColor" systemColor="systemYellowColor"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iron Man" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qNO-XL-DHU" userLabel="Name Label">
+                                                <rect key="frame" x="14" y="0.0" width="386" height="54"/>
+                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="45"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eLB-dQ-XnI">
-                                                <rect key="frame" x="39.666666666666657" y="0.0" width="110" height="20.333333333333332"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2020, Action, 2:35" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DQc-dM-PdS" userLabel="Info Label">
+                                                <rect key="frame" x="14" y="68" width="386" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="IuE-mg-Xld">
+                                                <rect key="frame" x="14" y="106" width="386" height="28.333333333333343"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Nde-K1-URA" userLabel="star 1">
-                                                        <rect key="frame" x="0.0" y="-0.33333333333333215" width="22" height="19.999999999999996"/>
-                                                        <color key="tintColor" systemColor="systemYellowColor"/>
-                                                    </imageView>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2Io-2A-hYV" userLabel="star 2">
-                                                        <rect key="frame" x="22" y="-0.33333333333333215" width="22" height="19.999999999999996"/>
-                                                        <color key="tintColor" systemColor="systemYellowColor"/>
-                                                    </imageView>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="yuD-kB-LWj" userLabel="star 3">
-                                                        <rect key="frame" x="44" y="-0.33333333333333215" width="22" height="19.999999999999996"/>
-                                                        <color key="tintColor" systemColor="systemYellowColor"/>
-                                                    </imageView>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kW0-kK-SsP" userLabel="star 4">
-                                                        <rect key="frame" x="66" y="-0.33333333333333215" width="22" height="19.999999999999996"/>
-                                                        <color key="tintColor" systemColor="systemYellowColor"/>
-                                                    </imageView>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="YdD-KL-yAY" userLabel="star 5">
-                                                        <rect key="frame" x="88" y="-0.33333333333333215" width="22" height="19.999999999999996"/>
-                                                        <color key="tintColor" systemColor="systemYellowColor"/>
-                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tke-dk-ck3" userLabel="Raiting Label">
+                                                        <rect key="frame" x="0.0" y="4" width="66.333333333333329" height="20.333333333333332"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                        <color key="textColor" systemColor="systemYellowColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eLB-dQ-XnI">
+                                                        <rect key="frame" x="80.333333333333343" y="4" width="305.66666666666663" height="20.333333333333332"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Nde-K1-URA" userLabel="star 1">
+                                                                <rect key="frame" x="0.0" y="-0.33333333333333215" width="61" height="19.999999999999996"/>
+                                                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                                            </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2Io-2A-hYV" userLabel="star 2">
+                                                                <rect key="frame" x="61.000000000000014" y="-0.33333333333333215" width="61.333333333333329" height="19.999999999999996"/>
+                                                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                                            </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="yuD-kB-LWj" userLabel="star 3">
+                                                                <rect key="frame" x="122.33333333333331" y="-0.33333333333333215" width="61" height="19.999999999999996"/>
+                                                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                                            </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kW0-kK-SsP" userLabel="star 4">
+                                                                <rect key="frame" x="183.33333333333337" y="-0.33333333333333215" width="61.333333333333343" height="19.999999999999996"/>
+                                                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                                            </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="YdD-KL-yAY" userLabel="star 5">
+                                                                <rect key="frame" x="244.66666666666669" y="-0.33333333333333215" width="61" height="19.999999999999996"/>
+                                                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                    </stackView>
+                                        <constraints>
+                                            <constraint firstItem="DQc-dM-PdS" firstAttribute="leading" secondItem="cbf-hM-CRL" secondAttribute="leading" constant="14" id="4Mz-OA-mSa"/>
+                                            <constraint firstAttribute="trailing" secondItem="qNO-XL-DHU" secondAttribute="trailing" constant="14" id="Ef0-yg-1yo"/>
+                                            <constraint firstItem="IuE-mg-Xld" firstAttribute="leading" secondItem="cbf-hM-CRL" secondAttribute="leading" constant="14" id="U8q-YS-l8N"/>
+                                            <constraint firstAttribute="trailing" secondItem="DQc-dM-PdS" secondAttribute="trailing" constant="14" id="Wc8-xR-ynr"/>
+                                            <constraint firstItem="qNO-XL-DHU" firstAttribute="leading" secondItem="cbf-hM-CRL" secondAttribute="leading" constant="14" id="ZCB-Dg-pdm"/>
+                                            <constraint firstItem="DQc-dM-PdS" firstAttribute="top" secondItem="qNO-XL-DHU" secondAttribute="bottom" constant="14" id="mbE-w7-FVq"/>
+                                            <constraint firstItem="qNO-XL-DHU" firstAttribute="top" secondItem="cbf-hM-CRL" secondAttribute="top" id="rM5-qd-clN"/>
+                                            <constraint firstItem="IuE-mg-Xld" firstAttribute="top" secondItem="DQc-dM-PdS" secondAttribute="bottom" constant="14" id="tg3-KY-nah"/>
+                                            <constraint firstAttribute="trailing" secondItem="IuE-mg-Xld" secondAttribute="trailing" constant="14" id="wnb-jq-VGX"/>
+                                            <constraint firstAttribute="bottom" secondItem="IuE-mg-Xld" secondAttribute="bottom" id="xDL-Be-pYz"/>
+                                        </constraints>
+                                        <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="JBX-cW-j57" userLabel="Description Label">
-                                        <rect key="frame" x="14" y="122.33333333333337" width="386" height="76.666666666666686"/>
+                                        <rect key="frame" x="14" y="142.33333333333331" width="386" height="134.33333333333331"/>
                                         <string key="text">After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil. dshg vsdhvsdhgv shdgvh dgsfivhjgd fsijv</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" systemColor="systemGray4Color"/>
@@ -127,12 +145,10 @@
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="qNO-XL-DHU" firstAttribute="leading" secondItem="5Qa-Tm-xHF" secondAttribute="leading" constant="14" id="2p5-2e-CpZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="qNO-XL-DHU" secondAttribute="trailing" constant="14" id="EFR-hQ-v58"/>
-                                    <constraint firstItem="DQc-dM-PdS" firstAttribute="leading" secondItem="5Qa-Tm-xHF" secondAttribute="leading" constant="14" id="Fuh-gC-BRj"/>
                                     <constraint firstAttribute="trailing" secondItem="JBX-cW-j57" secondAttribute="trailing" constant="14" id="Lfu-Mc-TLy"/>
                                     <constraint firstItem="JBX-cW-j57" firstAttribute="leading" secondItem="5Qa-Tm-xHF" secondAttribute="leading" constant="14" id="bWp-38-4lV"/>
-                                    <constraint firstAttribute="trailing" secondItem="DQc-dM-PdS" secondAttribute="trailing" constant="14" id="jAz-af-yGJ"/>
+                                    <constraint firstItem="cbf-hM-CRL" firstAttribute="leading" secondItem="5Qa-Tm-xHF" secondAttribute="leading" id="heg-d9-rGF"/>
+                                    <constraint firstAttribute="trailing" secondItem="cbf-hM-CRL" secondAttribute="trailing" id="ozs-FR-Ku6"/>
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3e-tt-1Pq">
@@ -257,24 +273,25 @@
                             <constraint firstItem="4QE-hN-k6H" firstAttribute="top" secondItem="ZQg-xn-dZO" secondAttribute="top" id="ENa-r0-lmk"/>
                             <constraint firstItem="pRq-2k-feG" firstAttribute="top" secondItem="unl-5H-5q5" secondAttribute="top" id="GCh-gI-807"/>
                             <constraint firstItem="91z-xa-N1s" firstAttribute="centerX" secondItem="unl-5H-5q5" secondAttribute="centerX" id="Hd6-Fi-dKA"/>
-                            <constraint firstItem="ZQg-xn-dZO" firstAttribute="trailing" secondItem="5Qa-Tm-xHF" secondAttribute="trailing" id="JXh-Ae-OhX"/>
+                            <constraint firstAttribute="trailing" secondItem="5Qa-Tm-xHF" secondAttribute="trailing" id="JXh-Ae-OhX"/>
                             <constraint firstItem="Fli-hM-ABM" firstAttribute="top" secondItem="Y3e-tt-1Pq" secondAttribute="bottom" constant="14" id="OKx-Jx-FuC"/>
                             <constraint firstItem="pRq-2k-feG" firstAttribute="leading" secondItem="ZQg-xn-dZO" secondAttribute="leading" id="RCl-Ws-zRF"/>
                             <constraint firstItem="4QE-hN-k6H" firstAttribute="leading" secondItem="unl-5H-5q5" secondAttribute="leading" id="StQ-PM-CLL"/>
                             <constraint firstAttribute="trailing" secondItem="4QE-hN-k6H" secondAttribute="trailing" id="Vmy-5a-1xI"/>
                             <constraint firstItem="ZQg-xn-dZO" firstAttribute="bottom" secondItem="91z-xa-N1s" secondAttribute="bottom" constant="14" id="Zzo-gW-KNc"/>
-                            <constraint firstItem="5Qa-Tm-xHF" firstAttribute="leading" secondItem="ZQg-xn-dZO" secondAttribute="leading" id="e2F-tD-SYv"/>
+                            <constraint firstItem="5Qa-Tm-xHF" firstAttribute="leading" secondItem="unl-5H-5q5" secondAttribute="leading" id="e2F-tD-SYv"/>
                             <constraint firstItem="Fli-hM-ABM" firstAttribute="leading" secondItem="ZQg-xn-dZO" secondAttribute="leading" id="kAE-ve-TTl"/>
                             <constraint firstItem="JBX-cW-j57" firstAttribute="height" relation="lessThanOrEqual" secondItem="unl-5H-5q5" secondAttribute="height" multiplier="0.15" id="n3W-qW-WFP"/>
                             <constraint firstItem="91z-xa-N1s" firstAttribute="top" secondItem="Fli-hM-ABM" secondAttribute="bottom" constant="14" id="oBZ-nu-XLK"/>
+                            <constraint firstItem="cbf-hM-CRL" firstAttribute="bottom" secondItem="pRq-2k-feG" secondAttribute="bottom" id="pWi-R6-re9"/>
                             <constraint firstAttribute="centerY" secondItem="pRq-2k-feG" secondAttribute="bottom" id="qeF-DK-yP7"/>
-                            <constraint firstItem="qNO-XL-DHU" firstAttribute="bottom" secondItem="pRq-2k-feG" secondAttribute="bottom" id="tsJ-kI-3zO"/>
                             <constraint firstAttribute="trailing" secondItem="pRq-2k-feG" secondAttribute="trailing" id="wVJ-3Q-8Ym"/>
                             <constraint firstItem="ZQg-xn-dZO" firstAttribute="trailing" secondItem="Fli-hM-ABM" secondAttribute="trailing" id="yIm-pY-vlr"/>
                             <constraint firstItem="ZQg-xn-dZO" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Y3e-tt-1Pq" secondAttribute="trailing" constant="14" id="ybU-BI-uN2"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bgView" destination="cbf-hM-CRL" id="4Pc-eN-qGT"/>
                         <outlet property="bookmarkButton" destination="ZVW-4V-j46" id="3nJ-n9-fpj"/>
                         <outlet property="collectionView" destination="Fli-hM-ABM" id="eV0-0N-Mbk"/>
                         <outlet property="descriptionLabel" destination="JBX-cW-j57" id="JQZ-OR-UMp"/>
@@ -283,9 +300,9 @@
                         <outlet property="posterImage" destination="pRq-2k-feG" id="zFb-LB-A2N"/>
                         <outlet property="raitingLabel" destination="Tke-dk-ck3" id="DsJ-3D-tqI"/>
                         <outlet property="videoNameLabel" destination="qNO-XL-DHU" id="oDI-Yb-qIF"/>
-                        <outletCollection property="stars" destination="Nde-K1-URA" collectionClass="NSMutableArray" id="USg-qK-UN9"/>
                         <outletCollection property="stars" destination="2Io-2A-hYV" collectionClass="NSMutableArray" id="rEI-O7-eyv"/>
                         <outletCollection property="stars" destination="yuD-kB-LWj" collectionClass="NSMutableArray" id="yb2-iX-wdC"/>
+                        <outletCollection property="stars" destination="Nde-K1-URA" collectionClass="NSMutableArray" id="USg-qK-UN9"/>
                         <outletCollection property="stars" destination="kW0-kK-SsP" collectionClass="NSMutableArray" id="p76-t1-n66"/>
                         <outletCollection property="stars" destination="YdD-KL-yAY" collectionClass="NSMutableArray" id="kuB-Gz-oJ2"/>
                     </connections>
@@ -351,7 +368,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DJs-CH-057"/>
+        <segue reference="FL1-jf-rmF"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>

@@ -19,6 +19,7 @@ class InfoScreenViewController: UIViewController {
     @IBOutlet var stars: [UIImageView]!
     @IBOutlet weak var detailsButton: UIButton!
     @IBOutlet weak var bookmarkButton: UIBarButtonItem!
+    @IBOutlet var bgView: UIView!
     
     var show: ShowRepresentable!
     var cast: [Cast]?
@@ -35,6 +36,7 @@ class InfoScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
+        setGradientView()
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -95,6 +97,19 @@ class InfoScreenViewController: UIViewController {
         if let isMatches = ContextManager.shared.isDataMatchesWith(title: show.title), isMatches {
             bookmarkButton.image = UIImage(systemName: "bookmark.fill")
         }
+    }
+    
+    func setGradientView() {
+        let colorTop =  UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.0).cgColor
+        let colorCenter = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.5).cgColor
+        let colorBottom = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 1.0).cgColor
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorTop, colorCenter, colorBottom]
+        gradientLayer.locations = [0.0, 0.4, 0.8]
+        gradientLayer.frame = bgView.bounds
+        
+        bgView.layer.insertSublayer(gradientLayer, at:0)
     }
     
     func prepareWith(_ content: ContentRepresentable) {
