@@ -7,8 +7,9 @@
 
 import UIKit
 import CoreData
+import SafariServices
 
-final class InfoScreenViewController: UIViewController {
+final class InfoScreenViewController: UIViewController, SFSafariViewControllerDelegate {
     
     
     // MARK: - IB Outlets
@@ -80,9 +81,15 @@ final class InfoScreenViewController: UIViewController {
     }
     
     @IBAction func detailsButtonPressed(_ sender: Any) {
-        UIApplication.shared.open(URL(string: show.homepage!)!)
+        guard let stringURL = show.homepage else { return }
+        if let url = URL(string: stringURL) {
+            let vc = SFSafariViewController(url: url)
+            
+            vc.delegate = self
+
+            present(vc, animated: true)
+        }
     }
-    
     
     // MARK: - Public Methods
     func prepareWith(_ content: ContentRepresentable) {
