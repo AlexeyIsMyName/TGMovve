@@ -37,6 +37,7 @@ class ContentCell: UICollectionViewCell {
             if let posterURL = viewModel.posterURL {
                 DispatchQueue.global().async {
                     URLManager.get.mediumImageFor(posterURL) { imageURL in
+                        
                         guard let imageData = try? Data(contentsOf: imageURL) else { return }
                         DispatchQueue.main.async {
                             self.posterImage.image = UIImage(data: imageData)
