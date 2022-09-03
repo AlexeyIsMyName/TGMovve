@@ -101,12 +101,13 @@ class InfoScreenViewController: UIViewController {
     
     func setGradientView() {
         let colorTop =  UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.0).cgColor
-        let colorCenter = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.5).cgColor
+        let colorTopC = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.5).cgColor
+        let colorBottomC = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 0.75).cgColor
         let colorBottom = UIColor(red: 21.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 1.0).cgColor
         
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop, colorCenter, colorBottom]
-        gradientLayer.locations = [0.0, 0.4, 0.8]
+        gradientLayer.colors = [colorTop, colorTopC, colorBottomC, colorBottom]
+        gradientLayer.locations = [0.0, 0.2, 0.5, 0.9]
         gradientLayer.frame = bgView.bounds
         
         bgView.layer.insertSublayer(gradientLayer, at:0)
