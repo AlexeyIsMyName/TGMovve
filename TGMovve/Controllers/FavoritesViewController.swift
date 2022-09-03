@@ -9,7 +9,7 @@ import UIKit
 
 class FavoritesViewController: UITableViewController {
     
-    var contentList = [Content]()
+    var contentList = MookmarkManager.contentList
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,6 @@ class FavoritesViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear")
         loadContent()
         tableView.reloadData()
     }
@@ -27,7 +26,6 @@ class FavoritesViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(contentList.count)
         return contentList.count
     }
     

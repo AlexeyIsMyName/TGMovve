@@ -61,5 +61,23 @@ class ContextManager {
         return nil
     }
     
+    func deleteIfMatches(title: String) -> Bool? {
+        let request: NSFetchRequest<Content> = Content.fetchRequest()
+        request.predicate = NSPredicate(format: "title MATCHES[cd] %@", title)
+        
+        do {
+            let contents = try context.fetch(request)
+            if contents.count > 0 {
+                delete(content: contents.first!)
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+        
+        return nil
+    }
     
 }

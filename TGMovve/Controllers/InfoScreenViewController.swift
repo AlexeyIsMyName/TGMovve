@@ -11,6 +11,7 @@ import CoreData
 class InfoScreenViewController: UIViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var contentList = MookmarkManager.contentList
     
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var videoNameLabel: UILabel!
@@ -45,25 +46,8 @@ class InfoScreenViewController: UIViewController {
     
     @IBAction func bookmarkButtonPressed(_ sender: Any) {
         
-        if let isMatches = ContextManager.shared.isDataMatchesWith(title: show.title), isMatches {
-
-            let content = Content(context: self.context)
-            content.id = Int32(show.id)
-            content.title = show.title
-            content.posterPath = show.posterPath
-            content.releaseData = show.releaseDate
-            
-            if let _ = show as? MovieInfo {
-                content.type = "Movie"
-            }
-            
-            if let _ = show as? TVSeriesInfo {
-                content.type = "TVSeries"
-            }
-            
-            ContextManager.shared.delete(content: content)
+        if let isMatches = ContextManager.shared.deleteIfMatches(title: show.title), isMatches {
             bookmarkButton.image = UIImage(systemName: "bookmark")
-            
         } else {
             
             let newContent = Content(context: self.context)
@@ -146,7 +130,6 @@ class InfoScreenViewController: UIViewController {
 extension InfoScreenViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(cast?.count ?? 0)
         return cast?.count ?? 0
     }
     
