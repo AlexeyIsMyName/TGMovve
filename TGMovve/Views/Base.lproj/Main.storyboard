@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -215,7 +214,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91z-xa-N1s">
-                                <rect key="frame" x="100.66666666666669" y="808" width="213" height="40"/>
+                                <rect key="frame" x="107" y="808" width="200" height="40"/>
                                 <color key="backgroundColor" red="1" green="0.11764705882352941" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="dEH-pd-j0j"/>
@@ -223,8 +222,7 @@
                                 </constraints>
                                 <color key="tintColor" red="0.90980392156862744" green="0.97647058823529409" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Open web page" imagePadding="8">
-                                    <imageReference key="image" image="network" catalog="system" symbolScale="large"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Open web page">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
                                 </buttonConfiguration>
                                 <userDefinedRuntimeAttributes>
@@ -384,7 +382,6 @@
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
-        <image name="network" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
