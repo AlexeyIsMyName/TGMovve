@@ -62,18 +62,19 @@ final class ImageManager {
     
     // MARK: - Networking and getting images depending on if the image is available in the cache
     private func fetchImage(from url: URL, complition: @escaping (UIImage) -> Void) {
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            
-            // Используем изображение из кеша, если есть
-            if let cahcedImage = self.getCachedImage(from: url) {
-                DispatchQueue.main.async {
-                    complition(cahcedImage)
-                }
+        // Используем изображение из кеша, если есть
+        if let cahcedImage = self.getCachedImage(from: url) {
+            DispatchQueue.main.async {
+                complition(cahcedImage)
             }
-            
-            // Если изображения в кеше нет, то гризим его из сети
+            return
+        }
+        
+        // Если изображения в кеше нет, то гризим его из сети
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data, let response = response else {
                 print(error?.localizedDescription ?? "No error description")
+//                print("NETWORKING ERROR")
                 return
             }
             
@@ -96,6 +97,7 @@ final class ImageManager {
     private func getCachedImage(from url: URL) -> UIImage? {
         let urlRequest = URLRequest(url: url)
         if let cachedResponse = URLCache.shared.cachedResponse(for: urlRequest) {
+//            print("GOT Image from Chache \(urlRequest)")
             return UIImage(data: cachedResponse.data)
         }
         return nil
@@ -106,6 +108,7 @@ final class ImageManager {
         let urlRequest = URLRequest(url: urlResponse)
         let cachedResponse = CachedURLResponse(response: reponse, data: data)
         URLCache.shared.storeCachedResponse(cachedResponse, for: urlRequest)
+//        print("Saved Image in Cache \(urlRequest)")
     }
     
     
