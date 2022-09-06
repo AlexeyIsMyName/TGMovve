@@ -78,7 +78,7 @@ final class ImageManager {
                 return
             }
             
-            guard url == response.url else { return }
+//            guard url == response.url else { return }
             
             if let image = UIImage(data: data) {
                 DispatchQueue.main.async {
