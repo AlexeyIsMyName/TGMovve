@@ -21,6 +21,7 @@ final class ContentCell: UICollectionViewCell {
     
     var viewModel: ViewModel! {
         didSet {
+            posterImage.image = nil
             
             titleLabel.text = viewModel.title
             

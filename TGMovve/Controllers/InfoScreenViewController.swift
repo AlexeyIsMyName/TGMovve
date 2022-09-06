@@ -178,6 +178,8 @@ extension InfoScreenViewController: UICollectionViewDataSource {
             return CastCell()
         }
         
+        castCell.actorImage.image = nil
+        
         if let cast = cast?[indexPath.item] {
             castCell.actorName.text = cast.name
             castCell.castName.text = cast.character

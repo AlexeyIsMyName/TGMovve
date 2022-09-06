@@ -39,7 +39,6 @@ final class ImageManager {
         DispatchQueue.global().async {
             URLManager.get.smallImageFor(url) { imageURL in
                 self.fetchImage(from: imageURL, complition: complition)
-                
             }
         }
     }

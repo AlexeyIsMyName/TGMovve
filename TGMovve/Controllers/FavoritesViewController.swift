@@ -71,6 +71,8 @@ class FavoritesViewController: UITableViewController {
             cell.dateLabel.text = dateFormatter.string(from: date)
         }
         
+        cell.posterImage.image = nil
+        
         if let posterURL = content.posterPath {
             ImageManager.shared.fetchImegeOf(size: .small, from: posterURL) { image in
                 cell.posterImage.image = image
